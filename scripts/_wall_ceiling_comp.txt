@@ -1,0 +1,65 @@
+n = nLineDefsSelected
+If Equal("n,0")
+	Show "You must select a linedef."
+	end
+endif
+if NotEqual("n,1")
+	Show "You must select only one linedef."
+	End
+endif
+
+GetUserInput ( kind, "Kind? (0=Computer, 1=Duct)", "0" )
+
+if equal("kind,0")
+	len = 64
+	tex = "COMPWERD"
+else          
+	len = 32
+	tex = "COMPTALL"
+endif
+
+GetSelectedLineDef n
+
+; *** Split it in three, get middle one
+SplitLineDef3 n, len
+n = nLineDefs - 1
+;
+GetLineDefProperty MapAngle, n, ANGLE
+GetLineDefProperty w, n, LENGTH
+GetLineDefProperty flg, n, FLAGS
+GetLineDefProperty txtr, n, FrontMainTexture
+
+; *** get sector properties and create new sector
+GetLineDefProperty sec, n, FrontSector
+GetSectorProperty f, sec, FloorHeight
+GetSectorProperty c, sec, CeilHeight 
+GetSectorProperty ft, sec, FloorTexture
+GetSectorProperty light, sec, LIGHT
+NewSector f, c - len, ft, "CEIL5_1", light
+
+; *** change line to two-sided
+SetLineDefProperty n, FrontSector, nSectors
+GetLineDefProperty fl, n, FLAGS
+SetLineDefProperty n, FLAGS, fl + LF_LOWERUNPEGGED
+
+;
+GetLineDefProperty sv, n, StartVertex
+GetVertexProperty MapX, sv, X
+GetVertexProperty MapY, sv, Y
+
+LineDefFlags = LF_TWOSIDED
+LineDefFrontSector = sec
+LineDefBackSector = nSectors
+LineDefFrontMainTexture = "-"
+LineDefFrontAboveTexture = "COMPSPAN"
+LineDefFrontYOffset = 0
+Move 8
+Left
+LineDefFrontAboveTexture = tex
+LineDefFrontYOffset = Len
+Move len
+Left
+LineDefFrontAboveTexture = "COMPSPAN"
+LineDefFrontYOffset = 0
+Move 8
+Left

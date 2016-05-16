@@ -1,0 +1,72 @@
+n = nLineDefsSelected
+if NotEqual("n,1")
+	Show "You must select a linedef"
+	End
+endif                
+
+GetUserInput ( type, "Switch Type 1/2", "1" )
+
+if equal("type,1")
+	width = 32
+else       
+	width = 32
+endif
+
+GetSelectedLineDef n
+;
+GetLineDefProperty MapAngle, n, ANGLE
+GetLineDefProperty w, n, LENGTH
+GetLineDefProperty flg, n, FLAGS
+GetLineDefProperty txtr, n, FrontMainTexture
+
+SetLineDefProperty n, FrontAboveTexture, txtr
+SetLineDefProperty n, FrontBelowTexture, txtr
+SetLineDefProperty n, FLAGS, flg + LF_UPPERUNPEGGED + LF_LOWERUNPEGGED
+
+GetLineDefProperty sec, n, FrontSector
+GetSectorProperty f, sec, FloorHeight
+GetSectorProperty c, sec, CeilHeight
+;
+GetLineDefProperty sv, n, StartVertex
+GetVertexProperty MapX, sv, X
+GetVertexProperty MapY, sv, Y
+Left
+Up
+Move Width
+; -- adjust line end!
+GetLineDefProperty ev, n, EndVertex
+SetVertexProperty ev, X, MapX
+SetVertexProperty ev, Y, MapY
+TurnAround
+Move Width
+Right
+Down
+
+; make and draw the new sector
+
+NewSector f + 24, f + 24 + 32, "FLAT19", "FLAT19", 160
+
+LineDefFlags = 0
+LineDefFrontSector = nSectors
+LineDefFrontMainTexture = "SHAWN2"
+LineDefFrontYOffset = 16
+Move 4
+Right
+if equal("type,1")
+	LineDefFrontMainTexture = "SW1EXIT"
+	LineDefFrontXOffset = 0
+	LineDefFrontYOffset = 16
+else
+	LineDefFrontMainTexture = "SW1STON1"
+	LineDefFrontXOffset = 16
+	LineDefFrontYOffset = 78
+endif
+Move Width
+Right
+LineDefFrontMainTexture = "SHAWN2"
+LineDefFrontYOffset = 16
+Move 4
+Right
+LineDefFrontMainTexture = "-"
+LineDefFrontYOffset = 0
+Move Width

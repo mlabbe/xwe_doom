@@ -1,0 +1,55 @@
+InputNumber ( MapAngle, "ANGLE?", 90 )
+InputNumber ( Width, "Width?", 32 )
+InputNumber ( Height, "Height?", 128 )
+InputNumber ( HInc, "Height Increase?", 0 )
+InputNumber ( Steps, "Steps?", 4 )
+w2 = width * 2
+
+PointInWhichSector sec, MapX, MapY
+LineDefFrontSector = sec
+LineDefBackSector = sec
+LineDefFlags = LF_TWOSIDED + LF_LOWERUNPEGGED
+LineDefFrontTexture = "STEPTOP"
+LineDefBackTexture = "STEPTOP"
+
+For i, 1, Steps
+       x = MapX
+       y = MapY                  
+       
+       LineDefFrontYOffset = Height - 16
+       LineDefBackYOffset = Height - 16
+       
+       NewLineDef x, y, x + width, y + width
+       SetLineDefProperty nLineDefs, FrontTextureMain, "STEPTOP"
+       SetLineDefProperty nLineDefs, BackTextureMain, "STEPTOP"
+       NewLineDef x + w2, y, x + width, y + width
+       SetLineDefProperty nLineDefs, FrontTextureMain, "STEPTOP"
+       SetLineDefProperty nLineDefs, BackTextureMain, "STEPTOP"
+       NewLineDef x, y + w2, x + width, y + width              
+       SetLineDefProperty nLineDefs, FrontTextureMain, "STEPTOP"
+       SetLineDefProperty nLineDefs, BackTextureMain, "STEPTOP"
+       NewLineDef x + w2, y + w2, x + width, y + width         
+       SetLineDefProperty nLineDefs, FrontTextureMain, "STEPTOP"
+       SetLineDefProperty nLineDefs, BackTextureMain, "STEPTOP"
+       
+       NewLineDef x, y, x, y + w2
+       SetLineDefProperty nLineDefs, FrontTextureMain, "STEPTOP"
+       SetLineDefProperty nLineDefs, BackTextureMain, "STEPTOP"
+       NewLineDefTo x + w2, y + w2                             
+       SetLineDefProperty nLineDefs, FrontTextureMain, "STEPTOP"
+       SetLineDefProperty nLineDefs, BackTextureMain, "STEPTOP"
+       NewLineDefTo x + w2, y                                  
+       SetLineDefProperty nLineDefs, FrontTextureMain, "STEPTOP"
+       SetLineDefProperty nLineDefs, BackTextureMain, "STEPTOP"
+       NewLineDefTo x, y                                       
+       SetLineDefProperty nLineDefs, FrontTextureMain, "STEPTOP"
+       SetLineDefProperty nLineDefs, BackTextureMain, "STEPTOP"
+
+       NewThing 9990, x+width, y+width, 0, 2023, Height-4, 0, 0, Width, 4
+       
+       Up
+       Move w2
+       Down
+       
+       Height = Height + HInc
+Next

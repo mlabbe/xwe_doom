@@ -1,0 +1,80 @@
+:Title eXtendable Wad Editor
+1 XWE Menus
+2 File Menu
+3 New = IDH_01101
+3 Open = IDH_01102
+3 Merge = IDH_01103
+3 Close = IDH_01104
+3 Clean Up = IDH_01105
+3 Exit = IDH_01111
+2 Edit Menu
+3 Copy = IDH_01202
+3 Paste = IDH_01203
+3 Empty Clipboard = IDH_01204
+2 Entry Menu
+3 New = IDH_01301
+3 Delete = IDH_01302
+3 Rename = IDH_01303
+3 Load = IDH_01304
+3 Load = IDH_01305
+3 Replace = IDH_01306
+3 Replace = IDH_01307
+3 Save As = IDH_01308
+3 Move Up = IDH_01309
+3 Move Down = IDH_01310
+2 View
+3 List of Entries = IDH_01401
+3 Menu Bar F11 = IDH_01402
+3 Filter Toolbar = IDH_01403
+3 Status bar = IDH_01404
+3 Options = IDH_01405
+2 Textures
+3 New = IDH_01501
+3 Duplicate = IDH_01502
+3 Delete = IDH_01503
+3 New Patch = IDH_01504
+3 Delete Patch = IDH_01505
+3 Move Patch Up = IDH_01506
+3 Move Patch Down = IDH_01507
+3 Save = IDH_01508
+2 Help
+3 Contents = IDH_01601
+3 About = IDH_01602
+1 Documentation
+2 Basic WAD editing operations
+3 How do I import a new texture? = IDH_02101
+3 How do I import a new flat? = IDH_02102
+3 How do I import a new sprite? = IDH_02103
+3 How do I import tall = IDH_02104
+3 How do I make my sprite/patch have a transparent background? = IDH_02105
+3 How do I make my textures high-resolution? = IDH_02106
+3 How do I import sounds? = IDH_02107
+3 How do I import music/MP3 files? = IDH_02108
+2 Technical information
+3 XWE.INI information = IDH_02201
+3 Defining lump types = IDH_02202
+3 Defining constants = IDH_02203
+1 List of supported games
+3 Adrenix = IDH_03001
+3 Blake Stone = IDH_03002
+3 Blood = IDH_03003
+3 Corridor 7 = IDH_03004
+3 Dark Forces = IDH_03005
+3 Descent 1 = IDH_03006
+3 Doom, Doom2, Hexen, Heretic = IDH_03007
+3 Duke Nukem 3D = IDH_03008
+3 Eye of the Beholder 1 = IDH_03009
+3 Eye of the Beholder 2 = IDH_03010
+3 Eye of the Beholder 3 = IDH_03011
+3 Foresaken = IDH_03012
+3 Half-life = IDH_03013
+3 Lands of Lore = IDH_03014
+3 NecroDome = IDH_03015
+3 PowerSlave = IDH_03016
+3 Quake 1, 2, 3 = IDH_03017
+3 Rise of the Triad = IDH_03018
+3 Strife = IDH_03019
+3 Thief = IDH_03020
+3 Witchaven = IDH_03021
+3 Wolfenstein 3D = IDH_03022
+

@@ -1,0 +1,42 @@
+PointInWhichSector ( sec, MapX, MapY )
+If Equal("sec,-1") Then
+	Show "Not inside a sector!"
+	Exit
+Endif
+
+Input ( kind, "0=small; 1=big;", "0" )
+
+side = 3
+width = 16
+
+LineDefFlags = 0
+LineDefFrontSector = sec
+
+For i, 1, 4
+
+	LineDefFrontMainTexture = "SHAWN2"
+	LineDefFrontXOffset = 0
+	Move side,0-side
+	LineDefFrontMainTexture = "SUPPORT3"
+	LineDefFrontXOffset = 4
+	Move width
+	
+	If Equal("kind,1")
+		LineDefFrontMainTexture = "SHAWN2"
+		LineDefFrontXOffset = 0
+		Move side,side
+		LineDefFrontMainTexture = "SUPPORT3"
+		LineDefFrontXOffset = 4
+		Move width
+		
+		LineDefFrontMainTexture = "SHAWN2"
+		LineDefFrontXOffset = 0
+		Move side,0-side
+		LineDefFrontMainTexture = "SUPPORT3"
+		LineDefFrontXOffset = 4
+		Move width
+	Endif
+	
+	Left
+
+Next i

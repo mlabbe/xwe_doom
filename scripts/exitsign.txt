@@ -1,0 +1,25 @@
+x = MapX
+y = MapY
+PointInWhichSector ( sec, x, y )
+If Equal("sec,-1") Then
+	Show "Not inside a sector!"
+	Exit
+Endif
+SectorDuplicate ( sec )
+GetSectorProperty ( ch, nSectors, CeilingHeight )
+SetSectorProperty ( nSectors, CeilingHeight, ch - 16 )
+SetSectorProperty ( nSectors, CeilingTexture, "CEIL5_1" )
+
+LineDefFlags = LF_TWOSIDED
+LineDefFrontSector = sec
+LineDefBackSector = nSectors
+Down
+LineDefFrontAboveTexture = "EXITSIGN"
+For i, 0, 1
+	LineDefFrontXOffset = 0
+	Move 32
+	Left
+	LineDefFrontXOffset = 32
+	Move 8
+	Left
+Next

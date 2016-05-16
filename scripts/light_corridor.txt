@@ -1,0 +1,106 @@
+n = nLineDefsSelected
+if NotEqual("n,1")
+       show "You must select select one linedef."
+       abort
+endif
+
+; *** Get the selected linedef
+GetSelectedLineDef n
+GetLineDefProperty MAPANGLE, n, Angle 
+If NotEqual("MAPANGLE,180")
+	show "Sorry; but the line angle should be 180 (facing west)"
+	end
+Endif
+GetLineDefProperty sec, n, FrontSector
+
+GetLineDefProperty dist, n, Length
+;dist = 128
+
+GetLineDefProperty v, n, StartVertex
+GetVertexProperty x1, v, X
+GetVertexProperty y1, v, Y
+MoveTo x1,y1
+
+GetLineDefProperty tex, n, FrontMainTexture
+
+light = 248
+lightstep = 0-8
+Input ( dista, "Distance A", 2 )
+Input ( distb, "Distance B", 16 )
+
+Steps = 16
+
+ya = y1 - dist
+yb = y1
+xaa = x1 + 64 + Steps * distb
+xab = xaa
+xba = xaa
+xbb = xaa
+ofs1 = 0
+ofs2 = 0
+
+For i, 1, Steps
+
+	SectorDuplicate ( sec )
+	SetSectorProperty ( nSectors, Light, light )
+	light = light + lightstep
+       
+	LineDefFrontSector = nSectors      
+	
+	xac = xaa
+	xad = xab
+	xaa = xaa + dista
+	xab = xab + distb
+	
+	LineDefFrontXOffset = 0
+	If Equal("i,Steps")
+		LineDefBackSector = sec
+		LineDefFlags = LF_TWOSIDED
+		LineDefFrontMainTexture = "-"
+	Endif
+	NewLineDef xaa, yb, xab, ya
+	LineDefFrontXOffset = ( 128 - distb - ofs1 ) \ 128
+	LineDefFlags = 0
+	LineDefFrontMainTexture = tex
+	NewLineDef xab, ya, xad, ya
+	LineDefFrontXOffset = 0
+	NewLineDef xad, ya, xac, yb
+	LineDefFrontXOffset = ofs2
+	NewLineDef xac, yb, xaa, yb
+	
+	xbc = xba
+	xbd = xbb
+	xba = xba - dista
+	xbb = xbb - distb      
+	LineDefFrontXOffset = 0
+	If Equal("i,Steps")
+		LineDefBackSector = sec
+		LineDefFlags = LF_TWOSIDED
+		LineDefFrontMainTexture = "-"
+	Endif
+	NewLineDef xbb, ya, xba, yb
+	LineDefFrontXOffset = ofs1 
+	LineDefFlags = 0
+	LineDefFrontMainTexture = tex
+	NewLineDef xbd, ya, xbb, ya
+	LineDefFrontXOffset = 0
+	NewLineDef xbc, yb, xbd, ya
+	LineDefFrontXOffset = ( 128 - dista - ofs2 ) \ 128
+	NewLineDef xba, yb, xbc, yb
+	
+	ofs1 = ( ofs1 + distb ) \ 128
+	ofs2 = ( ofs2 + dista ) \ 128
+Next
+
+LineDefFrontSector = sec
+LineDefFrontXOffset = 0
+NewLineDef xbb, ya, x1, ya
+NewLineDef x1, yb, xba, yb
+
+NewLineDef x1, ya, x1, yb
+
+x1 = x1 + ( 64 + Steps * distb ) * 2
+NewLineDef xaa, yb, x1, yb
+NewLineDef x1, ya, xab, ya
+
+NewLineDef x1, yb, x1, ya

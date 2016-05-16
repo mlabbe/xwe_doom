@@ -1,0 +1,43 @@
+n = nLineDefsSelected
+If Equal("n,0")
+	Show "You must select some linedefs."
+	end
+endif
+
+GetSelectedLineDef l
+                       
+GetLinedefProperty sec, l, FrontSector
+lsec = sec
+
+steps = 8
+
+for step, steps-1, 1, 0-1
+	LineDefFlags = LF_TWOSIDED
+	DuplicateSector sec
+	LineDefFrontSector = nSectors
+	LineDefBackSector = lsec
+	lsec = nSectors
+	for i, 0, n-1
+		GetSelectedLineDef l, i
+		
+		GetLineDefProperty sv, l, StartVertex
+		GetLineDefProperty ev, l, EndVertex
+		
+		GetVertexProperty sx, sv, X
+		GetVertexProperty sy, sv, Y
+		
+		GetVertexProperty ex, ev, X
+		GetVertexProperty ey, ev, Y
+		
+		nsx = MapX + ( sx - MapX ) / steps * step
+		nsy = MapY + ( sy - MapY ) / steps * step
+		
+		nex = MapX + ( ex - MapX ) / steps * step
+		ney = MapY + ( ey - MapY ) / steps * step
+		
+		NewLineDef nsx, nsy, nex, ney
+	next
+next
+
+		
+	

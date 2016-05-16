@@ -1,0 +1,59 @@
+x = MapX
+y = MapY
+PointInWhichSector ( sec, x, y )
+If Equal("sec,0-1")
+	Show "Not inside sector!"
+	End
+Endif
+
+Input ( ct, "0=tiny; 1=small; 2=big2; 3=big3; 4=huge", "3" )
+if equal("ct,4")
+	t = "CRATWIDE"
+	f = "CRATOP1"
+	bh = 128
+else 
+	if equal("ct,3")
+		t = "CRATE1"
+		f = "CRATOP2"
+		bh = 64
+	else
+		if equal("ct,2")
+			t = "CRATE2"
+			f = "CRATOP1"
+			bh = 64
+		else
+			if equal("ct,1")
+				t = "CRATELIT"
+				f = "CRATOP1"
+				bh = 32
+			else
+				t = "CRATINY"	
+				f = "CRATOP1"
+				bh = 16
+			endif
+		endif
+	endif
+endif
+
+GetUserInput ( angle, "Angle?", "0" )
+angle = angle + 45
+
+SectorDuplicate ( sec )
+GetSectorProperty ( fh, nSectors, FloorHeight )
+SetSectorProperty ( nSectors, FloorHeight, fh + bh )  
+SetSectorProperty ( nSectors, FloorTexture, f )
+
+LineDefFlags = LF_TWOSIDED
+LineDefFrontSector = sec
+LineDefFrontBelowTexture = t
+LineDefBackSector = nSectors
+
+dist = Sqrt ( bh * bh / 2 )
+RotatePoint ( x1, y1, x, y, dist, angle )
+RotatePoint ( x2, y2, x, y, dist, angle + 90 )
+RotatePoint ( x3, y3, x, y, dist, angle + 180 )
+RotatePoint ( x4, y4, x, y, dist, angle + 270 )
+NewLineDef ( x1, y1, x2, y2 )
+NewLineDef ( x2, y2, x3, y3 )
+NewLineDef ( x3, y3, x4, y4 )
+NewLineDef ( x4, y4, x1, y1 )

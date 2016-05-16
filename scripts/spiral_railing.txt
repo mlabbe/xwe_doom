@@ -1,0 +1,65 @@
+x = MapX
+y = MapY
+PointInWhichSector ( sec, x, y )
+
+GetSectorProperty ( fh, sec, FloorHeight )
+GetSectorProperty ( ch, sec, CeilingHeight )
+
+dista = 128 * 1
+distb = 128 * 2
+RotatePoint ( xa, ya, x, y, dista, 0 )
+RotatePoint ( xb, yb, x, y, distb, 0 )
+
+for angl, 10, 180 * 2, 10
+	SectorDuplicate ( sec )
+	LineDefFlags = 0
+	LineDefFrontSector = nSectors
+       LineDefFrontMainTexture = "GRAY1"
+       LineDefFrontBelowTexture = "STEP4"
+       LineDefFrontAboveTexture = "STEP4"
+	
+	;dista = dista - 4
+	;distb = distb - 4
+	                                               
+	fh = fh + 8
+	ch = ch + 8
+	SetSectorProperty ( nSectors, FloorHeight, fh )
+	SetSectorProperty ( nSectors, CeilingHeight, ch )
+
+	xc = xa
+	yc = ya
+	xd = xb
+	yd = yb
+	RotatePoint ( xa, ya, x, y, dista, angl )
+	RotatePoint ( xb, yb, x, y, distb, angl )
+	NewLineDef xa, ya, xc, yc
+	NewLineDef xc, yc, xd, yd
+	NewLineDef xd, yd, xb, yb
+	NewLineDef xb, yb, xa, ya
+	
+	; railing
+	
+	SectorDuplicate ( nSectors )
+	GetSectorProperty ( fha, nSectors, FloorHeight )
+	SetSectorProperty ( nSectors, FloorHeight, fha + 64 )
+	SetSectorProperty ( nSectors, FloorTexture, "CEIL5_2" )
+	
+	LineDefFlags = LF_TWOSIDED
+	LineDefFrontSector = nSectors - 1
+       LineDefFrontMainTexture = "-"
+       LineDefFrontBelowTexture = "SUPPORT3"
+       LineDefFrontAboveTexture = "SUPPORT3"
+       LineDefBackSector = nSectors
+       LineDefBackMainTexture = "-"
+       LineDefBackBelowTexture = "SUPPORT3"
+       LineDefBackAboveTexture = "SUPPORT3"
+       
+       RotatePoint ( xaa, yaa, x, y, distb - 22, angl - 4 )
+       RotatePoint ( xba, yba, x, y, distb - 10, angl - 4 )
+       RotatePoint ( xca, yca, x, y, distb - 10, angl - 6 )
+       RotatePoint ( xda, yda, x, y, distb - 22, angl - 6 )
+       NewLineDef xaa, yaa, xba, yba
+       NewLineDefTo xca, yca
+       NewLineDefTo xda, yda
+       NewLineDefTo xaa, yaa
+next

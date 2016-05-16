@@ -1,0 +1,18 @@
+For i, 0, nVertex
+       GetVertexProperty ( x, i, X )
+       GetVertexProperty ( y, i, Y )
+       SetVertexProperty ( i, X, x / 2 )
+       SetVertexProperty ( i, Y, y / 2 )
+Next
+For i, 0, nThings
+       GetThingProperty ( x, i, X )
+       GetThingProperty ( y, i, Y )
+       SetThingProperty ( i, X, x / 2 )
+       SetThingProperty ( i, Y, y / 2 )
+Next
+For i, 0, nSectors
+       GetSectorProperty ( fh, i, FloorHeight )
+       GetSectorProperty ( ch, i, CeilingHeight )
+       SetSectorProperty ( i, FloorHeight, fh / 2 )
+       SetSectorProperty ( i, CeilingHeight, ch / 2 )
+Next

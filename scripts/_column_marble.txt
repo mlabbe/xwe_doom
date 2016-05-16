@@ -1,0 +1,80 @@
+x = MapX
+y = MapY
+PointInWhichSector ( sec, x, y )
+If Equal("sec,-1") Then
+	Show "Not inside a sector!"
+	Exit
+Endif                               
+
+DuplicateSector ( sec )
+
+GetSectorProperty ( fh, nSectors, FloorHeight )     
+GetSectorProperty ( ch, nSectors, CeilHeight )
+SetSectorProperty ( nSectors, FloorHeight, fh + 13 )
+SetSectorProperty ( nSectors, CeilHeight, ch - 13 )
+SetSectorProperty ( nSectors, FloorTexture, "DEM1_5" )
+SetSectorProperty ( nSectors, CeilTexture, "DEM1_5" )
+                            
+LineDefFlags = LF_TWOSIDED + LF_UPPERUNPEGGED
+LineDefFrontSector = sec
+LineDefBackSector = nSectors
+LineDefFrontAboveTexture = "MARBGRAY"
+LineDefFrontBelowTexture = "MARBGRAY"
+
+For side, 1, 2
+	For quarter, 0, 1
+		xo = quarter * 32
+		LineDefFrontXOffset = xo
+		Move 8,1
+		xo = xo + 7
+		LineDefFrontXOffset = xo
+		Move 7,3
+		xo = xo + 6
+		LineDefFrontXOffset = xo
+		Move 6,5
+		xo = xo + 7
+		LineDefFrontXOffset = xo
+		Move 5,6
+		xo = xo + 6
+		LineDefFrontXOffset = xo
+		Move 3,7
+		xo = xo + 6
+		LineDefFrontXOffset = xo
+		Move 1,8
+		Left
+	Next
+Next
+
+Left
+Up
+Move 8
+Right
+Down
+
+LineDefFrontSector = nSectors
+LineDefFlags = 0
+LineDefFrontAboveTexture = "-"
+LineDefFrontMainTexture = "MARBGRAY"
+LineDefFrontBelowTexture = "-"
+LineDefFrontYOffset = 15
+
+For side, 1, 2
+	For quarter, 0, 1
+		xo = quarter * 32
+		LineDefFrontXOffset = xo
+		Move 7,1               
+		xo = xo + 7
+		LineDefFrontXOffset = xo
+		Move 6,3  
+		xo = xo + 6
+		LineDefFrontXOffset = xo
+		Move 5,5  
+		xo = xo + 7
+		LineDefFrontXOffset = xo
+		Move 3,6  
+		xo = xo + 6
+		LineDefFrontXOffset = xo
+		Move 1,7
+		Left
+	Next
+Next

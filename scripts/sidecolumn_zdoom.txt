@@ -1,0 +1,69 @@
+n = nLineDefsSelected
+if NotEqual("n,1")
+       show "You must select select one linedef."
+       abort
+endif
+
+GetSelectedLineDef n
+
+GetLineDefProperty MAPANGLE, n, Angle
+
+GetLineDefProperty sec, n, FrontSector
+
+SplitLineDef3 n
+DeleteLineDef nLineDefs - 1
+LD1 = nLineDefs
+
+GetVertexProperty x1, nVertex - 1, X
+GetVertexProperty y1, nVertex - 1, Y
+MoveTo x1, y1
+
+width = 16
+
+DuplicateSector ( sec )
+
+GetSectorProperty ( fh, nSectors, FloorHeight )
+SetSectorProperty ( nSectors, FloorHeight, fh + 32 )
+
+GetSectorProperty ( ch, nSectors, CeilingHeight )
+SetSectorProperty ( nSectors, CeilingHeight, ch - 32 )
+
+SetSectorProperty ( nSectors, FloorTexture, "CEIL5_2" )
+SetSectorProperty ( nSectors, CeilingTexture, "CEIL5_2" )
+
+LineDefFlags = 0
+LineDefFrontSector = sec
+LineDefFrontMainTexture = "METAL"
+Move width
+Left
+LineDefFrontSector = nSectors
+Move width * 2
+Left           
+LineDefFrontSector = sec
+Move width
+
+SetLineDefProperty LD1, StartVertex, nVertex
+
+Up
+TurnAround
+Move width
+Right
+Move width * 2
+Left
+Down
+LineDefFlags = LF_TWOSIDED
+LineDefFrontMainTexture = "-"
+LineDefFrontBelowTexture = "METAL"
+LineDefFrontAboveTexture = "METAL"
+LineDefBackSector = nSectors
+Move width * 2
+Left
+LineDefType = 0-75
+LineDefArg1 = 2
+LineDefArg2 = 2
+Move width * 2
+Left
+LineDefType = 0
+LineDefArg1 = 0
+LineDefArg2 = 0
+Move width * 2

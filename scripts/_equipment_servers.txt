@@ -1,0 +1,39 @@
+PointInWhichSector ( sec, MapX, MapY )
+If Equal("sec,0-1")
+	Show "Not inside sector!"
+	End
+Endif
+
+GetUserInput ( kind, "Kind? (0/1)", "0" )
+if equal("kind,0")
+	offs = 156
+else          
+	offs = 177 
+endif
+
+SectorDuplicate ( sec )
+GetSectorProperty ( fh, nSectors, FloorHeight )
+GetSectorProperty ( ch, nSectors, CeilingHeight )
+SetSectorProperty ( nSectors, FloorHeight, fh + 50 )
+SetSectorProperty ( nSectors, FloorTexture, "CEIL5_2" )
+
+LineDefFlags = LF_TWOSIDED
+LineDefFrontSector = sec
+LineDefBackSector = nSectors
+
+LineDefFrontBelowTexture = "ZZZFACE7"
+LineDefFrontXOffset = offs
+LineDefFrontYOffset = 76
+Move 18
+Left
+LineDefFrontBelowTexture = "METAL7"
+LineDefFrontXOffset = 0
+LineDefFrontYOffset = 63
+Move 33
+Left
+Move 9
+LineDefFrontXOffset = 24
+Move 9
+Left
+LineDefFrontXOffset = 0
+Move 33

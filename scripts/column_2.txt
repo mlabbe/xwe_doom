@@ -1,0 +1,14 @@
+UserInput ( width, "Column Width?", 32 )
+
+x = MapX
+y = MapY
+PointInWhichSector ( sec, x, y )
+
+LineDefFrontSector = sec 
+LineDefFrontMainTexture = "WOODMET1"
+
+Down
+For i, 0, 3                       
+       Move width
+       Left                  
+Next 

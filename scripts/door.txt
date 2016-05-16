@@ -1,0 +1,91 @@
+n = nLineDefsSelected
+if NotEqual("n,1")
+	InputNumber ( MapAngle, "Angle?", "0" )
+	InputNumber ( w, "Width?", "128" )
+	f = 0
+	Left
+	tf = "FLAT1"
+	tc = "FLAT1"
+else        
+	GetSelectedLineDef n
+	;
+	GetLineDefProperty MapAngle, n, ANGLE
+	GetLineDefProperty w, n, LENGTH
+	GetLineDefProperty sec, n, FrontSector
+	GetSectorProperty f, sec, FloorHeight
+	GetSectorProperty tf, sec, FloorTexture
+	GetSectorProperty tc, sec, CeilingTexture
+	;
+	GetLineDefProperty sv, n, StartVertex
+	GetVertexProperty MapX, sv, X
+	GetVertexProperty MapY, sv, Y
+	TurnAround
+endif
+InputNumber ( h, "Height?", "128" )
+InputNumber ( t, "Tag?", "1" )
+
+NewSector f, f + h, tf, tc, 160      
+LineDefFlags = 0
+LineDefFrontSector = nSectors
+LineDefFrontMainTexture = "DOORSTOP"
+Move 8
+Right
+Up
+Move w
+Down
+Right 
+Move 8
+Right
+Move w
+Right
+Up
+Move 8
+Down
+
+NewSector f, f, tf, tc, 160, 0, t
+
+LineDefFlags = LF_LOWERUNPEGGED
+LineDefFrontSector = nSectors
+LineDefFrontAboveTexture = "-"
+LineDefFrontMainTexture = "DOORTRAK"
+Move 32
+Up
+Right
+Move w
+Right
+Down
+Move 32
+Right
+
+LineDefFlags = LF_TWOSIDED
+LineDefFrontSector = nSectors - 1
+LineDefBackSector = nSectors
+LineDefFrontAboveTexture = "BIGDOOR2"
+LineDefFrontMainTexture = "-"
+LineDefTag = t
+LineDefType = 117
+Up
+Move w
+TurnAround
+Down
+Move w
+left
+Up
+Move 32
+left
+Down
+Move w
+    
+;----------------------------
+LineDefFlags = 0
+LineDefTag = 0
+LineDefType = 0
+LineDefFrontSector = nSectors - 1
+LineDefFrontAboveTexture = "-"
+LineDefFrontMainTexture = "DOORSTOP"
+Right
+Move 8
+Right
+Move w
+Right 
+Move 8

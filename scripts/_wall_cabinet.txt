@@ -1,0 +1,52 @@
+n = nLineDefsSelected
+if NotEqual("n,1")
+       show "You must select select one linedef."
+       abort
+endif
+
+Input ( cab, "Cabinets?", 4 )
+Input ( size, "0=Single; 1=Double?", 0 )
+size = ( size + 1 ) * 32
+width = cab * size + ( cab + 1 ) * 8
+
+; *** Get the selected linedef
+GetSelectedLineDef n
+GetLineDefProperty MAPANGLE, n, Angle
+GetLineDefProperty sec, n, FrontSector
+
+; *** Split it in three with middle length specified width
+SplitLineDef3 n, width                          
+; *** Delete middle piece
+DeleteLineDef nLineDefs - 1
+LD1 = nLineDefs
+
+GetVertexProperty x1, nVertex - 1, X
+GetVertexProperty y1, nVertex - 1, Y
+MoveTo x1, y1
+
+LineDefFlags = 0
+LineDefFrontSector = sec
+LineDefFrontMainTexture = "METAL2"
+Move 32
+LineDefFrontMainTexture = "SHAWN2"
+Move 8
+Left  
+
+For c, 1, cab
+	Move 8
+	Left  
+	Move 4
+	Right
+	LineDefFrontMainTexture = "METAL5"
+	Move size
+	Right
+	LineDefFrontMainTexture = "SHAWN2"
+	Move 4
+	Left
+Next
+
+Move 8
+Left
+Move 8
+LineDefFrontMainTexture = "METAL2"
+Move 32

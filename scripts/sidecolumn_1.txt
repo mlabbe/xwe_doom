@@ -1,0 +1,49 @@
+n = nLineDefsSelected
+if NotEqual("n,1")
+       show "You must select select one linedef."
+       abort
+endif
+
+; *** Get the selected linedef
+GetSelectedLineDef n
+GetLineDefProperty MAPANGLE, n, Angle
+GetLineDefProperty sec, n, FrontSector
+
+; *** Split it in three with middle length 28
+SplitLineDef3 n, 28                          
+; *** Delete middle piece
+DeleteLineDef nLineDefs - 1
+LD1 = nLineDefs
+
+GetVertexProperty x1, nVertex - 1, X
+GetVertexProperty y1, nVertex - 1, Y
+MoveTo x1, y1
+
+side = 3
+width = 16
+
+LineDefFlags = 0
+LineDefFrontSector = sec
+LineDefFrontMainTexture = "SHAWN2"
+LineDefFrontXOffset = 0
+Move side,side
+LineDefFrontMainTexture = "SUPPORT3"
+LineDefFrontXOffset = 4
+Move width
+LineDefFrontMainTexture = "SHAWN2"
+LineDefFrontXOffset = 0
+Move side,side
+Left
+LineDefFrontMainTexture = "SUPPORT3"
+LineDefFrontXOffset = 4
+Move width
+Left
+LineDefFrontMainTexture = "SHAWN2"
+LineDefFrontXOffset = 0
+Move side,0-side
+LineDefFrontMainTexture = "SUPPORT3"
+LineDefFrontXOffset = 4
+Move width             
+LineDefFrontMainTexture = "SHAWN2"
+LineDefFrontXOffset = 0
+Move side,0-side

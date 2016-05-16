@@ -1,0 +1,95 @@
+n = nLineDefsSelected
+if NotEqual("n,1")
+	Show "You must select a linedef"
+	End
+endif
+
+GetSelectedLineDef n
+;
+GetLineDefProperty MapAngle, n, ANGLE
+GetLineDefProperty w, n, LENGTH
+GetLineDefProperty flg, n, FLAGS
+GetLineDefProperty txtr, n, FrontMainTexture
+
+SetLineDefProperty n, FrontAboveTexture, txtr
+SetLineDefProperty n, FrontBelowTexture, txtr
+SetLineDefProperty n, FLAGS, flg + LF_UPPERUNPEGGED + LF_LOWERUNPEGGED
+
+GetLineDefProperty sec, n, FrontSector
+GetSectorProperty f, sec, FloorHeight
+GetSectorProperty c, sec, CeilHeight
+;
+GetLineDefProperty sv, n, StartVertex
+GetVertexProperty MapX, sv, X
+GetVertexProperty MapY, sv, Y
+TurnAround
+
+NewSector f + 16, c - 48, "FLAT19", "FLAT19", 160
+NewSector f + 24, c - 55, "CEIL5_1", "CEIL5_1", 160
+
+LineDefFlags = 0
+LineDefFrontSector = nSectors - 1
+LineDefFrontMainTexture = "SHAWN2"
+LineDefFrontYOffset = 32
+Move 4
+Right
+LineDefFrontMainTexture = "COMPWERD"
+LineDefFrontYOffset = 0
+Move 9                 
+
+LineDefFrontXOffset = 9
+LineDefFlags = LF_TWOSIDED + LF_UPPERUNPEGGED + LF_LOWERUNPEGGED
+LineDefBackSector = nSectors
+LineDefFrontAboveTexture = "COMPWERD"
+LineDefFrontMainTexture = "-"
+LineDefFrontBelowTexture = "COMPWERD"
+len = w - 9 - 9
+for i, 1, int ( len / 46 )
+	move 46
+	len = len - 46
+next           
+if notequal("len,0")
+	move len
+endif
+
+LineDefFrontXOffset = 56
+LineDefFlags = 0
+LineDefFrontAboveTexture = "-"       
+LineDefFrontMainTexture = "COMPWERD"
+LineDefFrontBelowTexture = "-"
+Move 9
+Right
+LineDefFrontMainTexture = "SHAWN2"
+LineDefFrontYOffset = 0
+LineDefFrontYOffset = 32
+Move 4
+Right
+LineDefFrontMainTexture = "COMPWERD"
+LineDefFrontYOffset = 0
+Move w
+
+; ----------
+
+Right
+Up
+Move 4
+Right
+Move 9
+Left  
+Down
+
+LineDefFrontSector = nSectors
+LineDefFrontMainTexture = "COMPSPAN"
+LineDefFrontXOffset = 2
+LineDefFrontYOffset = 2
+Move 2
+Right
+LineDefFrontMainTexture = "TEKWALL6"
+LineDefFrontXOffset = 0
+LineDefFrontYOffset = 0
+Move w - 9 - 9
+Right
+LineDefFrontMainTexture = "COMPSPAN"
+LineDefFrontXOffset = 2
+LineDefFrontYOffset = 2
+Move 2

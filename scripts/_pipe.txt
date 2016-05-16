@@ -1,0 +1,23 @@
+x = MapX
+y = MapY
+PointInWhichSector ( sec, x, y )
+If Equal("sec,-1") Then
+	Show "Not inside a sector!"
+	Exit
+Endif
+
+LineDefFrontSector = sec
+LineDefFrontMainTexture = "PIPES"
+
+For side, 1, 2
+	LineDefFrontXOffset = 0
+	Move 5
+	LineDefFrontXOffset = 5
+	Move 4,4
+	Left
+	LineDefFrontXOffset = 10
+	Move 5
+	LineDefFrontXOffset = 15
+	Move 4,4
+	Left
+Next

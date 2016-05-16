@@ -1,0 +1,63 @@
+PointInWhichSector ( sec, MapX, MapY )
+If Equal("sec,0-1")
+	Show "Not inside sector!"
+	End
+Endif
+
+Input ( kind, "0=low; 1=silver; 2=metal", "2" )
+if equal("kind,1")
+	t = "SILVER1"
+	m = "MIDSPACE"
+	f = "FLAT19"
+	o = 16
+	w = 32
+	h = 128
+else
+	if equal("kind,2")
+		t = "SUPPORT3"
+		m = "MIDBARS1"
+		f = "CEIL5_2"
+		o = 8 
+		w = 32
+		h = 128
+	else
+		if equal("kind,3")
+			;
+		else
+			t = "SUPPORT3"
+			m = "MIDBARS3"
+			f = "CEIL5_2"
+			o = 16
+			w = 16
+			h = 72
+		endif
+	endif
+endif
+
+SectorDuplicate ( sec )
+GetSectorProperty ( fh, nSectors, FloorHeight )
+GetSectorProperty ( ch, nSectors, CeilingHeight )
+SetSectorProperty ( nSectors, FloorHeight, fh + h )
+SetSectorProperty ( nSectors, FloorTexture, d )
+
+LineDefFlags = LF_TWOSIDED
+LineDefFrontSector = sec
+LineDefBackSector = nSectors
+LineDefFrontBelowTexture = t
+    
+For i, 1, 4    
+	LineDefFrontXOffset = o
+	Move w/2
+	Left
+	LineDefFrontXOffset = 0
+	Move w/2
+Next	
+Right
+LineDefBackSector = sec
+LineDefFrontBelowTexture = "-"
+LineDefFrontMainTexture = m
+LineDefBackMainTexture = m
+LineDefFlags = LF_TWOSIDED + LF_IMPASSABLE
+LineDefFrontYOffset = 0 - ( ch - fh - h )
+LineDefBackYOffset = 0 - ( ch - fh - h )
+Move 128

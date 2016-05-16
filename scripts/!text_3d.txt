@@ -1,0 +1,568 @@
+PointInWhichSector ( sec, MapX, MapY )
+If Equal("sec,0-1")
+	Show "Not inside sector!"
+	End
+Endif
+
+GetSectorProperty fh, sec, CeilingHeight
+GetSectorProperty ch, sec, CeilingHeight
+
+UserInput ( t, "Text? Use capitals!", "ABCDEFGHIJKLMNOPQRSTUVWXYZ" )
+len = Length ( t )
+tl = 0
+
+UserInput ( w, "Width? (8=normal; 16=bold)", "8" )
+y = 16 + 1
+
+LineDefFlags = LF_TWOSIDED
+LineDefFrontSector = sec
+LineDefFrontMainTexture = "EXITSIGN"
+LineDefFrontXOffset = 32
+LineDefBackSector = sec
+LineDefBackMainTexture = "EXITSIGN"
+LineDefBackXOffset = 32
+         
+for i, 1, len
+	c = mid ( "t, i, 1" )
+	k = asc ( c )
+	l = 0
+	if equal("k,65")
+		;show "A"
+		call dot, 1
+		call dot, 2
+		call dot, 3
+		call dot, 4
+		call go
+		call dot, 0
+		call dot, 2
+		call go
+		call dot, 0
+		call dot, 2
+		call go
+		call dot, 0
+		call dot, 2
+		call go 
+		call dot, 1
+		call dot, 2
+		call dot, 3
+		call dot, 4
+		call go
+	else
+	if equal("k,66")
+		;show "B"
+		call dot5
+		call go
+		call dot, 0
+		call dot, 2
+		call dot, 4
+		call go
+		call dot, 0
+		call dot, 2
+		call dot, 4
+		call go
+		call dot, 0
+		call dot, 2
+		call dot, 4
+		call go
+		call dot, 1
+		call dot, 3
+		call go
+	else     
+	if equal("k,67")
+		;show "C"
+		call dot3
+		call go
+		call dot, 0
+		call dot, 4
+		call go
+		call dot, 0
+		call dot, 4
+		call go
+		call dot, 0
+		call dot, 4
+		call go 
+		call dot, 0
+		call dot, 4
+		call go
+	else     
+	if equal("k,68")
+		;show "D"
+		call dot5
+		call go
+		call dot, 0
+		call dot, 4
+		call go
+		call dot, 0
+		call dot, 4
+		call go
+		call dot, 0
+		call dot, 4
+		call go
+		call dot3
+		call go
+	else     
+	if equal("k,69")
+		;show "E"
+		call dot5
+		call go
+		call dot, 0
+		call dot, 2
+		call dot, 4
+		call go
+		call dot, 0
+		call dot, 2
+		call dot, 4
+		call go
+		call dot, 0
+		call dot, 4
+		call go
+		call dot, 0
+		call dot, 4
+		call go
+	else     
+	if equal("k,70")
+		;show "F"
+		call dot5
+		call go
+		call dot, 0
+		call dot, 2
+		call go
+		call dot, 0
+		call dot, 2
+		call go
+		call dot, 0
+		call go
+		call dot, 0
+		call go
+	else     
+	if equal("k,71")
+		;show "G"
+		call dot3
+		call go
+		call dot, 0
+		call dot, 4
+		call go
+		call dot, 0
+		call dot, 2
+		call dot, 4
+		call go
+		call dot, 0
+		call dot, 2
+		call dot, 4
+		call go
+		call dot, 0
+		call dot, 2
+		call dot, 3
+		call dot, 4
+		call go
+	else     
+	if equal("k,72")
+		;show "H"
+		call dot5
+		call go
+		call dot, 2
+		call go
+		call dot, 2
+		call go
+		call dot, 2
+		call go
+		call dot5
+		call go
+	else     
+	if equal("k,73")
+		;show "I"
+		call dot5
+		call go
+	else     
+	if equal("k,74")
+		;show "J"
+		call dot, 3
+		call go
+		call dot, 4
+		call go
+		call dot, 4
+		call go
+		call dot, 4
+		call go
+		call dot, 0
+		call dot, 1
+		call dot, 2
+		call dot, 3
+		call go
+	else     
+	if equal("k,75")
+		;show "K"
+		call dot5
+		call go    
+		call dot, 2
+		call go
+		call dot, 2
+		call go
+		call dot, 1
+		call dot, 3
+		call go
+		call dot, 0
+		call dot, 4
+		call go
+	else     
+	if equal("k,76")
+		;show "L"
+		call dot5
+		call go
+		call dot, 4
+		call go
+		call dot, 4
+		call go
+		call dot, 4 
+		call go
+		call dot, 4
+		call go
+	else     
+	if equal("k,77")
+		;show "M"
+		call dot5
+		call go
+		call dot, 1
+		call go
+		call dot, 2
+		call go
+		call dot, 1
+		call go
+		call dot5
+		call go
+	else     
+	if equal("k,78")
+		;show "N"
+		call dot5
+		call go
+		call dot, 1
+		call go
+		call dot, 2
+		call go
+		call dot, 3
+		call go
+		call dot5
+		call go
+	else     
+	if equal("k,79")
+		;show "O"
+		call dot3
+		call go
+		call dot, 0
+		call dot, 4
+		call go
+		call dot, 0
+		call dot, 4
+		call go
+		call dot, 0
+		call dot, 4
+		call go 
+		call dot3
+		call go
+	else     
+	if equal("k,80")
+		;show "P"
+		call dot5
+		call go
+		call dot, 0
+		call dot, 2
+		call go
+		call dot, 0
+		call dot, 2
+		call go
+		call dot, 0          
+		call dot, 2          
+		call go              
+		call dot, 1          
+		call go
+	else     
+	if equal("k,81")
+		;show "Q"
+		call dot3
+		call go
+		call dot, 0
+		call dot, 4
+		call go
+		call dot, 0
+		call dot, 4
+		call go                 
+		call dot, 0
+		call dot, 3
+		call go
+		call dot, 1
+		call dot, 2
+		call dot, 4
+		call go
+	else     
+	if equal("k,82")
+		;show "R"
+		call dot5
+		call go
+		call dot, 0
+		call dot, 2
+		call go
+		call dot, 0
+		call dot, 2
+		call go
+		call dot, 0          
+		call dot, 2          
+		call dot, 3
+		call go              
+		call dot, 1
+		call dot, 4
+		call go
+	else     
+	if equal("k,83")
+		;show "S"
+		call dot, 1
+		call dot, 4
+		call go
+		call dot, 0
+		call dot, 2
+		call dot, 4
+		call go
+		call dot, 0
+		call dot, 2
+		call dot, 4
+		call go
+		call dot, 0          
+		call dot, 2          
+		call dot, 4
+		call go              
+		call dot, 0
+		call dot, 3
+		call go
+	else     
+	if equal("k,84")
+		;show "T"
+		call dot, 0
+		call go
+		call dot, 0
+		call go
+		call dot5
+		call go
+		call dot, 0
+		call go
+		call dot, 0
+		call go
+	else     
+	if equal("k,85")
+		;show "U"
+		call dot, 0
+		call dot, 1
+		call dot, 2
+		call dot, 3
+		call go
+		call dot, 4
+		call go
+		call dot, 4
+		call go
+		call dot, 4
+		call go
+		call dot, 0
+		call dot, 1
+		call dot, 2
+		call dot, 3
+		call go
+	else     
+	if equal("k,86")
+		;show "V"
+		call dot, 0
+		call dot, 1
+		call dot, 2
+		call go
+		call dot, 3
+		call go
+		call dot, 4
+		call go
+		call dot, 3
+		call go
+		call dot, 0
+		call dot, 1
+		call dot, 2
+		call go
+	else     
+	if equal("k,87")
+		;show "W"
+		call dot5
+		call go
+		call dot, 3
+		call go
+		call dot, 2
+		call go
+		call dot, 3
+		call go
+		call dot5
+		call go
+	else     
+	if equal("k,88")
+		;show "X"
+		call dot, 0
+		call dot, 4
+		call go
+		call dot, 1
+		call dot, 3
+		call go
+		call dot, 2
+		call go
+		call dot, 1
+		call dot, 3
+		call go
+		call dot, 0
+		call dot, 4
+		call go 
+	else     
+	if equal("k,89")
+		;show "Y"
+		call dot, 0
+		call dot, 1
+		call go
+		call dot, 2
+		call go
+		call dot, 2
+		call dot, 3
+		call dot, 4
+		call go
+		call dot, 2
+		call go
+		call dot, 0
+		call dot, 1
+		call go
+	else     
+	if equal("k,90")
+		;show "Z"
+		call dot, 0
+		call dot, 4
+		call go
+		call dot, 0
+		call dot, 3
+		call dot, 4
+		call go
+		call dot, 0
+		call dot, 2
+		call dot, 4
+		call go
+		call dot, 0          
+		call dot, 1          
+		call dot, 4
+		call go              
+		call dot, 0
+		call dot, 4
+		call go
+	else     
+	if equal("k,32")
+		;show " "
+		call go
+		call go
+	else     
+	if equal("k,33")
+		;show "!"
+		call dot, 0
+		call dot, 1
+		call dot, 2
+		call dot, 4
+		call go
+	else     
+	if equal("k,39")
+		;show "'"
+		call dot, 0
+		call dot, 1
+		call go
+	else     
+	if equal("k,42")
+		;show "*"
+		LineDefFrontXOffset = 31
+		LineDefFrontYOffset = 37
+		l = 4
+	else     
+	if equal("k,44")
+		;show ","
+		call dot, 4
+		call go
+		call dot, 3
+		call go
+	else
+	if equal("k,45")
+		;show "-"
+		call dot, 2
+		call go
+		call dot, 2
+		call go
+		call dot, 2
+		call go
+	else     
+	if equal("k,46")
+		;show "."
+		call dot, 4
+		call go
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	
+	call go
+	
+next
+
+stop
+
+sub dot5
+	call dot, 0
+	call dot, 1
+	call dot, 2
+	call dot, 3
+	call dot, 4
+endsub
+
+sub dot3
+	call dot, 1
+	call dot, 2
+	call dot, 3
+endsub
+
+sub dot               
+	LineDefFrontYOffset = fh - ch - Param1 * y 
+	LineDefBackYOffset = fh - ch - Param1 * y  
+	move w
+	left
+	move w
+	left
+	move w
+	left
+	move w
+	left
+endsub
+
+sub go
+	up
+	move w + 1
+	down
+endsub

@@ -1,0 +1,55 @@
+n = nLineDefsSelected
+If Equal("n,0")
+	Show "You must select a linedef."
+	end
+endif
+if NotEqual("n,1")
+	Show "You must select only one linedef."
+	End
+endif
+
+GetSelectedLineDef n
+
+; *** Split it in three, get middle one
+SplitLineDef3 n, 64
+n = nLineDefs - 1
+;
+GetLineDefProperty MapAngle, n, ANGLE
+GetLineDefProperty w, n, LENGTH
+GetLineDefProperty flg, n, FLAGS
+GetLineDefProperty txtr, n, FrontMainTexture
+
+; *** get sector properties and create new sector
+GetLineDefProperty sec, n, FrontSector
+GetSectorProperty f, sec, FloorHeight
+GetSectorProperty c, sec, CeilHeight
+GetSectorProperty light, sec, LIGHT                  
+; type = 1, random blink
+NewSector f, f + 72, "FLAT19", "FLAT19", light + 8, 1
+
+; *** copy texture to above and below, make it unpegged
+SetLineDefProperty n, FrontAboveTexture, txtr
+SetLineDefProperty n, FrontBelowTexture, txtr
+SetLineDefProperty n, FrontMainTexture, "-"
+SetLineDefProperty n, FLAGS, flg + LF_UPPERUNPEGGED + LF_LOWERUNPEGGED + LF_TWOSIDED
+SetLineDefProperty n, BackSector, nSectors
+
+;
+GetLineDefProperty sv, n, StartVertex
+GetVertexProperty MapX, sv, X
+GetVertexProperty MapY, sv, Y
+TurnAround
+
+LineDefFlags = 0
+LineDefFrontSector = nSectors
+LineDefFrontMainTexture = "LITE3"
+Move 32
+Right
+LineDefFrontMainTexture = "DOOR3"
+Move 64
+Right
+LineDefFrontMainTexture = "LITE3"
+Move 32
+Right
+LineDefFrontMainTexture = "-"
+Move 64

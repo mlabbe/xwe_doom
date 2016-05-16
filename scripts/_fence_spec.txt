@@ -1,0 +1,117 @@
+PointInWhichSector ( sec, MapX, MapY )
+If Equal("sec,0-1")
+	Show "Not inside sector!"
+	End
+Endif
+
+Input ( kind, "0=low; 1=silver; 2=metal", "0" )
+if equal("kind,1")
+	t = "SILVER1"
+	m = "MIDSPACE"
+	m2 = "MIDSPACE"
+	f = "FLAT19"
+	l = 8    
+	o2 = 11
+	o = 16
+	w = 32
+	h = 128
+else
+	if equal("kind,2")
+		t = "SUPPORT3"
+		m = "MIDBARS1"
+		m2 = "METAL"
+		f = "CEIL5_2"
+		l = 8
+		o2 = 11
+		o = 8 
+		w = 32
+		h = 128
+	else
+		if equal("kind,3")
+			t = "MIDBRONZ"
+			m = "MIDBRONZ"
+			m2 = "MIDBRONZ"
+			f = "CEIL5_2"
+			l = 11
+			o2 = 29
+			o = 16
+			w = 16
+			h = 128
+		else
+			t = "SUPPORT3"
+			m = "MIDBARS3"
+			m2 = "METAL"
+			f = "CEIL5_2"
+			l = 10
+			o2 = 11
+			o = 22
+			w = 10
+			h = 72
+		endif
+	endif
+endif
+
+SectorDuplicate ( sec )
+GetSectorProperty ( fh, nSectors, FloorHeight )
+GetSectorProperty ( ch, nSectors, CeilingHeight )
+SetSectorProperty ( nSectors, FloorHeight, fh + h )
+SetSectorProperty ( nSectors, FloorTexture, f )
+
+LineDefFlags = LF_TWOSIDED
+LineDefFrontSector = sec
+LineDefBackSector = nSectors
+LineDefFrontBelowTexture = t
+    
+For i, 1, 4    
+	LineDefFrontXOffset = o
+	Move w/2
+	Left
+	LineDefFrontXOffset = 0
+	Move w/2
+Next	
+Right
+
+For i, 1, 4
+	LineDefBackSector = sec
+	LineDefFlags = LF_TWOSIDED
+	LineDefFrontBelowTexture = "-"
+	LineDefBackBelowTexture = "-"
+	LineDefFrontMainTexture = m
+	LineDefBackMainTexture = m
+	LineDefFrontYOffset = 0 - ( ch - fh - h )
+	LineDefBackYOffset = 0 - ( ch - fh - h )
+	LineDefFrontXOffset = o2
+	LineDefBackXOffset = o2
+	Move l
+	Move l
+	Move l
+	                           
+	LineDefBackSector = nSectors	                           
+	LineDefFlags = LF_TWOSIDED            
+	LineDefFrontBelowTexture = m2
+	LineDefBackBelowTexture = m2
+	LineDefFrontMainTexture = "-"
+	LineDefBackMainTexture = "-"
+	LineDefFrontYOffset = 0
+	LineDefBackYOffset = 0
+	LineDefFrontXOffset = 6
+	LineDefBackXOffset = 6
+	Up
+	Left
+	Move 4
+	TurnAround
+	Down
+	Move 8
+	Left
+	Move 8
+	Left
+	Move 8
+	Left
+	Move 8
+	Left
+	Up
+	Move 4
+	Left
+	Move 8
+	Down
+Next

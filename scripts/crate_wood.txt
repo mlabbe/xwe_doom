@@ -1,0 +1,63 @@
+x = MapX
+y = MapY
+PointInWhichSector ( sec, x, y )
+If Equal("sec,0-1")
+	Show "Not inside sector!"
+	End
+Endif
+
+DeSelectAll
+
+Input ( size, "Size?", "64" )
+
+GetSectorProperty ( fh, sec, FloorHeight )
+
+SectorDuplicate ( sec )
+SetSectorProperty ( nSectors, FloorHeight, fh + 11 )  
+SetSectorProperty ( nSectors, FloorTexture, "CEIL5_2" )
+
+LineDefFlags = LF_TWOSIDED
+LineDefFrontSector = sec
+LineDefBackSector = nSectors
+LineDefFrontBelowTexture = "WOOD5"
+
+For i, 0, 3
+	Move size + 2
+	Left
+Next  
+Up
+Move 1,1
+Down
+
+SectorDuplicate ( sec )
+SetSectorProperty ( nSectors, FloorHeight, fh + size )  
+SetSectorProperty ( nSectors, FloorTexture, "CEIL5_2" )
+LineDefFrontSector = nSectors-1
+LineDefBackSector = nSectors
+
+For i, 0, 3
+	LineDefFrontBelowTexture = "METAL"
+	Move 8
+	LineDefFrontBelowTexture = "WOOD5"
+	LineDefFrontXOffset = 12
+	Move size - 16                    
+	LineDefFrontBelowTexture = "METAL"
+	LineDefFrontXOffset = 0
+	Move 8
+	Left
+Next
+Up
+Move 8,8
+Down
+
+SectorDuplicate ( sec )
+SetSectorProperty ( nSectors, FloorHeight, fh + size - 2 )  
+SetSectorProperty ( nSectors, FloorTexture, "FLAT5_2" )
+LineDefFrontSector = nSectors-1
+LineDefBackSector = nSectors
+LineDefBackBelowTexture = "METAL"
+
+For i, 0, 3
+	Move size - 16
+	Left
+Next

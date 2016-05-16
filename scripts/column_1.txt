@@ -1,0 +1,82 @@
+UserInput ( width, "Inner Width?", 48 )
+UserInput ( sw, "Small Width?", 8 )
+
+x = MapX
+y = MapY
+PointInWhichSector ( sec, x, y )
+
+DuplicateSector ( sec )
+
+GetSectorProperty ( fh, nSectors, FloorHeight )
+SetSectorProperty ( nSectors, FloorHeight, fh + 16 )
+
+GetSectorProperty ( fh, nSectors, CeilingHeight )
+SetSectorProperty ( nSectors, CeilingHeight, fh - 16 )
+
+SetSectorProperty ( nSectors, FloorTexture, "CEIL5_2" )
+SetSectorProperty ( nSectors, CeilingTexture, "CEIL5_2" )
+
+LineDefFlags = LF_TWOSIDED
+
+LineDefFrontSector = sec 
+LineDefFrontMainTexture = "-"
+LineDefFrontBelowTexture = "WOODMET1"
+LineDefFrontAboveTexture = "WOODMET1"
+
+LineDefBackSector = nSectors
+LineDefBackMainTexture = "-"
+LineDefBackBelowTexture = "-"
+LineDefBackAboveTexture = "-"
+
+Up
+MapAngle = 180
+Move 8
+Left
+Move 8
+Down
+               
+For i, 0, 3                       
+       
+       Move width - 16
+       Right                  
+       Move sw
+       Left
+       Move 16 + 8 + 8
+       Left
+       Move 16 + 8 + 8
+       Left
+       Move sw
+       Right
+Next 
+
+Up
+TurnAround
+Move 8
+Right
+Move 8 
+Right
+Down
+                        
+LineDefFlags = 0
+LineDefFrontSector = nSectors
+LineDefFrontBelowTexture = "-"
+LineDefFrontAboveTexture = "-"
+               
+For i, 0, 3                       
+       
+       LineDefFrontMainTexture = "SHAWN2"
+       LineDefFrontXOffset = 0
+       Move width
+       Right
+       
+       LineDefFrontMainTexture = "SUPPORT3"
+       LineDefFrontXOffset = 4
+       Move sw
+       Left
+       Move 16 
+       Left
+       Move 16
+       Left
+       Move sw
+       Right
+Next 

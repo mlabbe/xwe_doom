@@ -1,0 +1,166 @@
+n = nLineDefsSelected
+if NotEqual("n,1")
+       show "You must select select one linedef."
+       abort
+endif
+
+depth = 16
+width = 64
+sidewidth = 32
+
+GetSelectedLineDef n
+
+GetLineDefProperty sec, n, FrontSector
+GetLineDefProperty mt, n, FrontMainTexture
+GetLineDefProperty len, n, Length
+GetLineDefProperty MAPANGLE, n, Angle
+Left                           
+
+SplitLineDef3 n
+LineDefDelete nLineDefs - 1
+
+Len = ( Len - ( Width + SideWidth * 2 ) ) / 2
+
+GetLineDefProperty v, nLineDefs, StartVertex
+SetVertexProperty v, X, MapX + Len + Width + SideWidth * 2
+GetLineDefProperty v, n, EndVertex
+SetVertexProperty v, X, MapX + Len
+
+DuplicateSector ( sec )
+GetSectorProperty ( fh, nSectors, FloorHeight )
+SetSectorProperty ( nSectors, CeilingHeight, fh )
+
+DuplicateSector ( sec )
+GetSectorProperty ( fh, nSectors, FloorHeight )
+SetSectorProperty ( nSectors, CeilingHeight, fh + 128 )
+
+DuplicateSector ( nSectors )
+SetSectorProperty ( nSectors, CeilingHeight, fh )
+
+DuplicateSector ( nSectors )
+
+Left
+Up
+Move Depth
+Right
+Move Len
+Down
+
+LineDefBackAboveTexture = mt
+LineDefFrontAboveTexture = mt
+
+sa = nSectors
+sb = nSectors - 1
+Call DoorFront
+Up
+Right
+Move SideWidth
+Left
+Move Depth
+Left
+Down             
+sa = nSectors - 1
+sb = nSectors
+Call DoorFront
+
+LineDefFrontSector = nSectors - 3
+
+Up
+Move 1
+Right
+Move SideWidth
+Left
+Move Depth - 2
+TurnAround
+Down
+Move Depth - 2
+Up
+Right
+Move Width + SideWidth * 2
+Right
+Down
+Move Depth - 2
+
+End
+
+Sub DoorFront
+
+       LineDefBackSector = sec
+       LineDefFrontSector = sa
+
+       Move SideWidth  
+       Right
+       LineDefType = 181
+       LineDefArg2 = 1
+       Move Depth     
+       LineDefType = 0
+       LineDefArg2 = 0
+       Right
+       LineDefFlags = LF_TWOSIDED
+       Move SideWidth  
+       LineDefFlags = 0
+       Right
+       Move Depth
+       
+       Up       
+       Right
+       Move SideWidth
+       Down                         
+       
+       LineDefFrontSector = nSectors - 2
+       
+       TurnAround
+       Move SideWidth
+       Right
+       Move 1
+       Right
+       
+       LineDefFlags = LF_TWOSIDED
+       LineDefBackSector = nSectors - 3
+       
+       Move SideWidth * 2 + Width
+       
+       SetLineDefProperty nLineDefs, FrontAboveTexture, "BIGDOOR2"
+       SetLineDefProperty nLineDefs, Type, 12
+       SetLineDefProperty nLineDefs, Arg2, 40
+       SetLineDefProperty nLineDefs, Arg3, 40
+       SetLineDefProperty nLineDefs, Flags, 1540
+       
+       LineDefBackSector = sec
+       LineDefFlags = 0
+       
+       Right
+       Move 1
+       Right
+       Move SideWidth
+       Left
+       LineDefType = 181
+       LineDefArg2 = 2
+       Move Depth     
+       LineDefType = 0
+       LineDefArg2 = 0
+       Right
+       LineDefFlags = LF_TWOSIDED
+       Move Width
+       LineDefFlags = 0
+       Right
+       Move Depth     
+       
+       Up       
+       Right
+       Move Width
+       Down
+       
+       LineDefFrontSector = sb
+       
+       Move SideWidth  
+       Right
+       Move Depth     
+       Right
+       LineDefFlags = LF_TWOSIDED
+       Move SideWidth  
+       LineDefFlags = 0
+       Right
+       Move Depth
+       
+EndSub

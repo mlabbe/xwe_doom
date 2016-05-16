@@ -1,0 +1,27 @@
+UserInput ( t, "Texture to find?", "SW1LION" )
+Trim t
+UpperCase t
+DeselectAll
+nfound = 0
+For i, 0, nLineDefs
+	GetLineDefProperty ( s, i, FrontTextureMain )
+	Call checktext
+	GetLineDefProperty ( s, i, BackTextureMain )
+	Call checktext
+Next                          
+If Equal("nfound,0")
+	Message "None found."
+Else                 
+	Message nfound
+Endif
+Stop
+
+Sub CheckText
+	Trim s
+	UpperCase s
+	If Equal ( "s, t" )
+		SetLineDefProperty ( i, Selected, 1 )
+		nfound = nfound + 1                  
+		Message nfound
+	Endif
+EndSub

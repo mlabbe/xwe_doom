@@ -1,0 +1,109 @@
+n = nLineDefsSelected
+if NotEqual("n,1")
+       show "You must select select one linedef."
+       abort
+endif
+
+; *** Get the selected linedef
+GetSelectedLineDef n
+GetLineDefProperty MAPANGLE, n, Angle
+GetLineDefProperty distb, n, Length
+GetLineDefProperty sec, n, FrontSector
+
+UserInputNumber ( dir, "Direction? (0=left; 1=right)", "0" )
+
+UserInputNumber ( dista, "Inner Diameter?", "128" )
+;UserInputNumber ( distb, "Stair Width?", "128" )
+
+GetLineDefProperty sv, n, StartVertex
+GetVertexProperty MapX, sv, X
+GetVertexProperty MapY, sv, Y
+Up
+If equal("dir,0")
+	Right
+else
+	left
+	Move distb
+endif
+Move dista
+Down
+x = MapX
+y = MapY
+
+distb = distb + dista
+
+UserInputNumber ( StepHeight, "Step Height (Negative to go down)", "6" )
+
+;UserInputNumber ( StartAngle, "Start Angle", "0" )
+If equal("dir,0")
+	StartAngle = MapAngle - 180
+else                  
+	StartAngle = MapAngle
+endif
+UserInputNumber ( EndAngle, "End Angle", StartAngle + 180 )
+UserInputNumber ( AngleStep, "Angle Step?", "9" )
+
+DeselectAll
+
+GetSectorProperty ( fh, sec, FloorHeight )
+GetSectorProperty ( ch, sec, CeilingHeight )
+
+LineDefFlags = 0
+LineDefFrontMainTexture = "GRAY1"
+LineDefFrontBelowTexture = "STEP4"
+LineDefFrontAboveTexture = "STEP4"
+
+yoffset = 0
+
+If equal("dir,1")
+	temp = StartAngle
+	StartAngle = EndAngle
+	EndAngle = temp
+	AngleStep = 0 - AngleStep
+endif
+
+RotatePoint ( xa, ya, x, y, dista, StartAngle )
+RotatePoint ( xb, yb, x, y, distb, StartAngle )
+
+for angl, StartAngle + AngleStep, EndAngle, AngleStep
+	
+	yoffset = yoffset - StepHeight
+	
+	SectorDuplicate ( sec )                          
+	LineDefFrontSector = nSectors
+	
+	;dista = dista - 4
+	;distb = distb - 4
+	                                               
+	fh = fh + StepHeight
+	ch = ch + StepHeight
+	SetSectorProperty ( nSectors, FloorHeight, fh )
+	SetSectorProperty ( nSectors, CeilingHeight, ch )
+
+	xc = xa
+	yc = ya
+	xd = xb
+	yd = yb
+	RotatePoint ( xa, ya, x, y, dista, angl )
+	RotatePoint ( xb, yb, x, y, distb, angl )
+	
+	If equal("dir,0")
+		LineDefFrontYOffset = yoffset
+		NewLineDef xc, yc, xa, ya    
+	  LineDefFrontYOffset = 0
+		NewLineDef xd, yd, xc, yc    
+	 	LineDefFrontYOffset = yoffset
+		NewLineDef xb, yb, xd, yd
+		LineDefFrontYOffset = 0
+		NewLineDef xa, ya, xb, yb
+	Else                      
+		LineDefFrontYOffset = yoffset
+		NewLineDef xa, ya, xc, yc    
+	  LineDefFrontYOffset = 0
+		NewLineDef xc, yc, xd, yd    
+	 	LineDefFrontYOffset = yoffset
+		NewLineDef xd, yd, xb, yb
+		LineDefFrontYOffset = 0
+		NewLineDef xb, yb, xa, ya
+	endif
+next

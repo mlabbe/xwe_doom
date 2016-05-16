@@ -1,0 +1,71 @@
+x = MapX
+y = MapY
+PointInWhichSector ( sec, x, y )
+
+DeselectAll
+
+GetSectorProperty ( fh, sec, FloorHeight )
+GetSectorProperty ( ch, sec, CeilingHeight )
+
+LineDefFlags = 0
+LineDefFrontMainTexture = "-"
+LineDefFrontBelowTexture = "STEP4"
+LineDefFrontAboveTexture = "STEP4"
+
+astep = 15
+mindist = 64
+maxdist = 256       
+step = 32
+
+fh = fh + 128
+fd = 4 
+        
+SectorDuplicate ( sec )
+SetSectorProperty ( nSectors, FloorHeight, fh )
+LineDefFrontSector = nSectors
+RotatePoint ( xa, ya, x, y, mindist, 0 )
+
+; for angl, astep, 360, astep
+;  	xb = xa
+; 	yb = ya                          
+; 	RotatePoint ( xa, ya, x, y, mindist, angl )
+;	NewLineDef xa, ya, xb, yb
+; next
+
+for dist, mindist, maxdist, step
+
+	RotatePoint ( xa, ya, x, y, dist, 0 )
+	RotatePoint ( xb, yb, x, y, dist + step, 0 )
+       
+	for angl, astep, 360, astep
+		SectorDuplicate ( sec )                          
+		SetSectorProperty ( nSectors, FloorHeight, fh )
+       	
+		LineDefFrontSector = nSectors
+       
+		xc = xa
+		yc = ya
+		xd = xb
+		yd = yb
+		RotatePoint ( xa, ya, x, y, dist, angl )
+		RotatePoint ( xb, yb, x, y, dist + step, angl )
+       	
+		LineDefFlags = LF_TWOSIDED
+		LineDefBackSector = sec
+		LineDefType = 0-75
+		LineDefArg1 = 1
+       	NewLineDef xb, yb, xd, yd
+       	                          
+		LineDefFlags = 0
+		LineDefType = 0
+       	LineDefArg1 = 0
+       	NewLineDef xd, yd, xc, yc
+       	NewLineDef xc, yc, xa, ya
+       	NewLineDef xa, ya, xb, yb
+       	
+       next
+       
+       fh = fh - fd
+       fd = fd + 4
+       
+next

@@ -1,0 +1,116 @@
+n = nLineDefsSelected
+if NotEqual("n,1")
+	InputNumber ( MapAngle, "Direction?", "90" )
+	InputNumber ( width, "Step Width?", "64" )
+	
+	; turn left once to correct map angle    
+	Left
+	
+	PointInWhichSector ( sec, MapX, MapY )
+	if equal("sec,-1")
+		; not inside another sector
+		fh = 0
+		ch = 128                           
+		light = 160
+	else
+		GetSectorProperty ( fh, sec, FloorHeight )
+		GetSectorProperty ( ch, sec, CeilingHeight )
+		GetSectorProperty light, sec, LIGHT
+	endif
+	
+else        
+	GetSelectedLineDef n
+	;
+	GetLineDefProperty MapAngle, n, ANGLE
+	GetLineDefProperty width, n, LENGTH
+	GetLineDefProperty sec, n, FRONTSECTOR
+	GetSectorProperty fh, sec, FloorHeight
+	GetSectorProperty ch, sec, CeilingHeight
+	GetSectorProperty light, sec, LIGHT
+	;
+	sec = -1
+	;
+	GetLineDefProperty sv, n, StartVertex
+	GetVertexProperty MapX, sv, X
+	GetVertexProperty MapY, sv, Y
+	;
+	Left
+	Up
+	Move Width
+	Down
+	TurnAround
+endif
+UserInput ( length, "Step Length?", 16 )
+UserInput ( sheight, "Step Height? (Negative to go down)", 8 )
+UserInput ( steps, "Number of steps?", 16 )
+UserInput ( lightd, "Light Increase or Decrease?", 0 )
+
+DeselectAll
+
+xoffset = 0
+yoffset = 0
+
+For step, 1, steps
+
+	yoffset = yoffset - sheight
+
+	if equal("sec,-1")				
+		NewSector 0, 128, "FLAT19", "FLAT19"
+		LineDefFlags = 0
+		LineDefFrontMainTexture = "GRAY1"
+		LineDefFrontAboveTexture = "STEP4"
+		LineDefFrontBelowTexture = "STEP4"
+	else
+		DuplicateSector ( sec )
+		LineDefFlags = LF_TWOSIDED
+		LineDefFrontMainTexture = "-"
+		LineDefBackSector = sec      
+		LineDefFrontAboveTexture = "STEP4"
+		LineDefFrontBelowTexture = "STEP4"
+		LineDefBackAboveTexture = "STEP4"
+		LineDefBackBelowTexture = "STEP4"
+	endif                 
+	SetSectorProperty nSectors, LIGHT, light
+	
+	fh = fh + sheight
+	SetSectorProperty ( nSectors, FloorHeight, fh )
+	
+	ch = ch + sheight
+	SetSectorProperty ( nSectors, CeilingHeight, ch )
+	
+	LineDefFrontSector = nSectors
+	
+	LineDefFrontXOffset = 0
+	LineDefFrontYOffset = 0
+	LineDefBackXOffset = 0
+	LineDefBackYOffset = 0
+	Move width
+	Right
+	LineDefFrontXOffset = xoffset
+	LineDefFrontYOffset = yoffset
+	LineDefBackXOffset = 0 - length - xoffset
+	LineDefBackYOffset = yoffset
+	Move length
+	Right 
+	LineDefFrontXOffset = 0
+	LineDefFrontYOffset = 0
+	LineDefBackXOffset = 0
+	LineDefBackYOffset = 0
+	Move width
+	Right
+	LineDefFrontXOffset = 0 - length - xoffset
+	LineDefFrontYOffset = yoffset
+	LineDefBackXOffset = xoffset
+	LineDefBackYOffset = yoffset
+	Move length
+	
+	xoffset = xoffset + length
+	light = light + lightd
+	
+	Up
+	TurnAround
+	Move length
+	Left     
+	Down
+       
+Next 

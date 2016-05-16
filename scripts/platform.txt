@@ -1,0 +1,63 @@
+PointInWhichSector ( sec, MapX, MapY )
+If Equal("sec,-1") Then
+	Show "Not inside a sector!"
+	Exit
+Endif
+
+DeSelectAll
+
+InputNumber ( side, "Number of Side lines?", 4 )
+InputNumber ( size, "Kind? Small=0 or Big=1", 0 )
+InputNumber ( ud, "Up=1 or Down=0", 1 )
+ 
+; floor difference
+; corner line size
+; line size
+If equal("size,0")
+	fd = 5            
+	cs = 34 
+	ls = 48               
+	
+	LineDefFrontBelowTexture = "TEKGREN1"
+	LineDefFrontXOffset = 5
+	LineDefFrontYOffset = 5
+else
+	fd = 9
+	cs = 20
+	ls = 28                
+	
+	LineDefFrontBelowTexture = "COMPTALL"
+	LineDefFrontXOffset = 112
+	LineDefFrontYOffset = 13
+endif
+
+DuplicateSector sec
+GetSectorProperty fh, sec, FloorHeight
+if equal("ud,1")
+	SetSectorProperty nSectors, FloorHeight, fh + fd
+	LineDefFrontSector = sec
+	LineDefBackSector = nSectors
+	cx = 0 - cs
+else                         
+	SetSectorProperty nSectors, FloorHeight, fh - fd
+	LineDefFrontSector = nSectors
+	LineDefBackSector = sec
+	cx = cs
+endif
+                             
+LineDefFlags = LF_TWOSIDED
+
+For s, 1, 4     
+	Move cs,cx
+	;
+	For i, 1, side
+		Move ls
+	Next
+	;
+	if equal("ud,1")	
+		; linedefs pointing outside
+		Left
+	else
+		right
+	endif
+Next

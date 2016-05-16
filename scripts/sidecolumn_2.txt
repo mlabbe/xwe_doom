@@ -1,0 +1,34 @@
+n = nLineDefsSelected
+if NotEqual("n,1")
+       show "You must select select one linedef."
+       abort
+endif
+
+GetSelectedLineDef n
+
+GetLineDefProperty MAPANGLE, n, Angle
+
+GetLineDefProperty sec, n, FrontSector
+
+SplitLineDef3 n
+DeleteLineDef nLineDefs - 1
+LD1 = nLineDefs
+
+GetVertexProperty x1, nVertex - 1, X
+GetVertexProperty y1, nVertex - 1, Y
+MoveTo x1, y1
+
+width = 8
+
+LineDefFlags = 0
+LineDefFrontSector = sec
+LineDefFrontMainTexture = "DOORSTOP"
+LineDefFrontXOffset = 2
+Move width
+Left
+Move width
+Left           
+Move width
+
+SetLineDefProperty LD1, StartVertex, nVertex
+

@@ -1,0 +1,25 @@
+UserInputNumber ( MapAngle, "Angle", "0" )
+
+x = MapX
+y = MapY
+PointInWhichSector ( sec, x, y )
+
+LineDefFlags = LF_TWOSIDED
+
+LineDefFrontSector = sec 
+LineDefFrontMainTexture = "MIDBARS3"
+LineDefBackSector = sec 
+LineDefBackMainTexture = "MIDBARS3"
+
+Down   
+n = 0
+x = 0
+For i, 0, 128
+	LineDefFrontXOffset = x
+	LineDefFrontYOffset = n
+	LineDefBackXOffset = x
+	LineDefBackYOffset = n
+	Move 2
+	n = n + 1
+	x = x + 2
+Next 

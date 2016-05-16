@@ -1,0 +1,397 @@
+n = nLineDefsSelected
+if NotEqual("n,1")
+	Show "You must select one linedef."
+	End
+endif
+GetSelectedLineDef n
+;
+GetLineDefProperty MapAngle, n, ANGLE
+GetLineDefProperty ev, n, EndVertex
+GetLineDefProperty Fl, n, Flags
+SetLineDefProperty n, Flags, Fl + LF_UPPERUNPEGGED + LF_LOWERUNPEGGED
+Up
+TurnAround
+Move 2
+Right
+Down
+;
+GetLineDefProperty sec, n, FrontSector
+GetSectorProperty f, sec, FloorHeight
+NewSector f + 39, f + 39 + 5, "FLAT23", "FLAT23", 192
+
+LineDefFrontSector = nSectors
+
+UserInput ( t, "Text? Use capitals!", "ABCDEFGHIJKLMNOPQRSTUVWXYZ" )
+len = Length ( t )
+tl = 0
+
+LineDefFrontMainTexture = "COMPSTA1"
+         
+; one pixel on left side         
+LineDefFrontXOffset = 26
+LineDefFrontYOffset = 25
+l = 1
+call line
+
+for i, 1, len
+	c = mid ( "t, i, 1" )
+	k = asc ( c )
+	l = 0
+	if equal("k,65")
+		;show "A"
+		LineDefFrontXOffset = 35
+		LineDefFrontYOffset = 33
+		l = 4
+	else
+	if equal("k,66")
+		;show "B"
+		LineDefFrontXOffset = 43
+		LineDefFrontYOffset = 37
+		l = 4
+	else     
+	if equal("k,67")
+		;show "C"
+		LineDefFrontXOffset = 43
+		LineDefFrontYOffset = 33
+		l = 4
+	else     
+	if equal("k,68")
+		;show "D"
+		LineDefFrontXOffset = 19
+		LineDefFrontYOffset = 33
+		l = 4
+	else     
+	if equal("k,69")
+		;show "E"
+		LineDefFrontXOffset = 31
+		LineDefFrontYOffset = 25
+		l = 4
+	else     
+	if equal("k,70")
+		;show "F"
+		LineDefFrontXOffset = 39
+		LineDefFrontYOffset = 29
+		l = 4
+	else     
+	if equal("k,71")
+		;show "G"
+		LineDefFrontXOffset = 15
+		LineDefFrontYOffset = 29 
+		l = 2
+		call line
+		LineDefFrontXOffset = 36
+		LineDefFrontYOffset = 37 
+		l = 1                   
+		call line
+		LineDefFrontXOffset = 17
+		l = 2
+	else     
+	if equal("k,72")
+		;show "H"
+		LineDefFrontXOffset = 35
+		LineDefFrontYOffset = 37
+		l = 1
+		call line
+		LineDefFrontXOffset = 36
+		LineDefFrontYOffset = 38
+		l = 1    
+		call line
+		LineDefFrontXOffset = 35
+		LineDefFrontYOffset = 37
+		l = 1
+		call line
+		LineDefFrontXOffset = 26
+		LineDefFrontYOffset = 25
+		l = 1
+	else     
+	if equal("k,73")
+		;show "I"
+		LineDefFrontXOffset = 19
+		LineDefFrontYOffset = 25
+		l = 4
+	else     
+	if equal("k,74")
+		;show "J"
+		LineDefFrontXOffset = 36
+		LineDefFrontYOffset = 37
+		l = 2
+		call line
+		LineDefFrontXOffset = 35
+		LineDefFrontYOffset = 37
+		l = 1
+		call line
+		LineDefFrontXOffset = 26
+		LineDefFrontYOffset = 25
+		l = 1
+	else     
+	if equal("k,75")
+		;show "K"
+		LineDefFrontXOffset = 35
+		LineDefFrontYOffset = 37
+		l = 1
+		call line
+		LineDefFrontXOffset = 21
+		LineDefFrontYOffset = 37
+		call line
+		LineDefFrontXOffset = 25
+		LineDefFrontYOffset = 37
+		call line
+		LineDefFrontXOffset = 26
+		LineDefFrontYOffset = 25
+	else     
+	if equal("k,76")
+		;show "L"
+		LineDefFrontXOffset = 35
+		LineDefFrontYOffset = 37
+		l = 4
+	else     
+	if equal("k,77")
+		;show "M"
+		LineDefFrontXOffset = 35
+		LineDefFrontYOffset = 25
+		l = 2
+		call line               
+		LineDefFrontXOffset = 35
+		LineDefFrontYOffset = 25
+		l = 4
+	else     
+	if equal("k,78")
+		;show "N"
+		LineDefFrontXOffset = 35
+		LineDefFrontYOffset = 25
+		l = 4        
+	else     
+	if equal("k,79")
+		;show "O"
+		LineDefFrontXOffset = 35
+		LineDefFrontYOffset = 29
+		l = 4        
+	else     
+	if equal("k,80")
+		;show "P"
+		LineDefFrontXOffset = 35
+		LineDefFrontYOffset = 37
+		l = 1
+		call line
+		LineDefFrontXOffset = 17
+		LineDefFrontYOffset = 38
+		call line
+		LineDefFrontXOffset = 44
+		LineDefFrontYOffset = 29
+		call line
+		LineDefFrontXOffset = 26
+		LineDefFrontYOffset = 25
+	else     
+	if equal("k,81")
+		;show "Q"
+		LineDefFrontXOffset = 35
+		LineDefFrontYOffset = 29
+		l = 2
+		call line
+		LineDefFrontXOffset = 35
+		LineDefFrontYOffset = 37
+		call line               
+		LineDefFrontXOffset = 26
+		LineDefFrontYOffset = 25
+		l = 1
+	else     
+	if equal("k,82")
+		;show "R"
+		LineDefFrontXOffset = 35
+		LineDefFrontYOffset = 37
+		l = 1
+		call line
+		LineDefFrontXOffset = 36
+		LineDefFrontYOffset = 33
+		l = 3
+	else     
+	if equal("k,83")
+		;show "S"
+		LineDefFrontXOffset = 36
+		LineDefFrontYOffset = 37
+		l = 1
+		call line
+		LineDefFrontXOffset = 12
+		LineDefFrontYOffset = 25
+		l = 3
+	else     
+	if equal("k,84")
+		;show "T"
+		LineDefFrontXOffset = 11
+		LineDefFrontYOffset = 25
+		l = 4
+	else     
+	if equal("k,85")
+		;show "U"
+		LineDefFrontXOffset = 35
+		LineDefFrontYOffset = 37
+		l = 2
+		call line
+		l = 1
+		call line
+		LineDefFrontXOffset = 26
+		LineDefFrontYOffset = 25
+	else     
+	if equal("k,86")
+		;show "V"
+		LineDefFrontXOffset = 17
+		LineDefFrontYOffset = 38
+		l = 1
+		call line
+		LineDefFrontXOffset = 36
+		LineDefFrontYOffset = 37
+		call line
+		LineDefFrontXOffset = 17
+		LineDefFrontYOffset = 38
+		call line               
+		LineDefFrontXOffset = 26
+		LineDefFrontYOffset = 25
+	else     
+	if equal("k,87")
+		;show "W"
+		LineDefFrontXOffset = 35
+		LineDefFrontYOffset = 37
+		l = 2
+		call line
+		call line
+		l = 1
+		call line
+		LineDefFrontXOffset = 26
+		LineDefFrontYOffset = 25
+	else     
+	if equal("k,88")
+		;show "X"
+		LineDefFrontXOffset = 20
+		LineDefFrontYOffset = 37
+		l = 2
+		call line
+		l = 1
+		call line
+		LineDefFrontXOffset = 26
+		LineDefFrontYOffset = 25
+		l = 1
+	else     
+	if equal("k,89")
+		;show "Y"
+		LineDefFrontXOffset = 17
+		LineDefFrontYOffset = 38
+		l = 1
+		call line
+		LineDefFrontXOffset = 17
+		LineDefFrontYOffset = 37
+		call line
+		LineDefFrontXOffset = 17
+		LineDefFrontYOffset = 38
+		call line               
+		LineDefFrontXOffset = 26
+		LineDefFrontYOffset = 25
+	else     
+	if equal("k,90")
+		;show "Z"
+		LineDefFrontXOffset = 27
+		LineDefFrontYOffset = 25
+		l = 2
+		call line               
+		LineDefFrontXOffset = 45
+		LineDefFrontYOffset = 31
+	else     
+	if equal("k,32")
+		;show " "
+		LineDefFrontXOffset = 23
+		LineDefFrontYOffset = 25
+		l = 4
+	else     
+	if equal("k,33")
+		;show "!"
+		LineDefFrontXOffset = 41
+		LineDefFrontYOffset = 27
+		l = 2
+	else     
+	if equal("k,39")
+		;show "'"
+		LineDefFrontXOffset = 45
+		LineDefFrontYOffset = 39
+		l = 2
+	else     
+	if equal("k,42")
+		;show "*"
+		LineDefFrontXOffset = 31
+		LineDefFrontYOffset = 37
+		l = 4
+	else     
+	if equal("k,44")
+		;show ","
+		LineDefFrontXOffset = 24
+		LineDefFrontYOffset = 27
+		l = 1
+		call line
+		LineDefFrontYOffset = 25
+	else
+	if equal("k,45")
+		;show "-"
+		LineDefFrontXOffset = 36
+		LineDefFrontYOffset = 38
+		l = 3
+	else     
+	if equal("k,46")
+		;show "."
+		LineDefFrontXOffset = 37
+		LineDefFrontYOffset = 37
+		l = 2
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	
+	call line
+next
+
+LineDefFrontXOffset = 0
+LineDefFrontYOffset = 0
+LineDefFrontMainTexture = "SHAWN2"
+
+right
+move 2
+right 
+
+SetVertexProperty ev, X, MapX
+SetVertexProperty ev, Y, MapY
+
+move tl
+right
+move 2
+
+stop
+
+sub line
+	move l
+	tl = tl  + l
+endsub

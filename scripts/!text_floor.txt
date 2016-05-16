@@ -1,0 +1,904 @@
+DeSelectAll
+
+PointInWhichSector ( sec, MapX, MapY )
+If Equal("sec,0-1")
+	NewSector ( 0, 128, "FLAT14", "FLAT14", 192 )
+Else
+	DuplicateSector ( sec )
+	SetSectorProperty ( nSectors, FloorTexture, "FLAT14" )
+Endif 
+
+UserInput ( t, "Text? Use capitals!", "ABCDEFGHIJKLMNOPQRSTUVWXYZ" )
+len = Length ( t )
+tl = 0
+
+;xs = 16
+;ys = 8
+UserInput ( xs, "X Size?", "8" )
+UserInput ( ys, "Y Size?", "12" )
+
+LineDefFlags = LF_TWOSIDED
+LineDefFrontSector = nSectors
+LineDefBackSector = sec
+         
+for i, 1, len
+	c = mid ( "t, i, 1" )
+	k = asc ( c )
+	Show c
+	Show k
+	l = 0
+	if equal("k,65")
+		;show "A"
+		up
+		move xs
+		down
+		move xs
+		move xs, 0-ys
+		right
+		move ys * 4
+		right
+		move xs
+		right
+		move ys * 2
+		left
+		move xs
+		left
+		move ys * 2
+		right
+		move xs
+		right
+		move ys * 4
+		move ys, 0-xs
+		up
+		turnaround
+		move ys
+		down
+		call idot 
+		up         
+		left
+		move xs * 2
+		left
+		move ys
+		right
+	else
+	if equal("k,66")
+		;show "B"
+		move xs * 2
+		move xs, 0-ys
+		right
+		move ys
+		right
+		move xs, ys / 2
+		move 0-xs, ys / 2
+		left
+		move ys 
+		right
+		move xs,ys
+		move xs * 2
+		right
+		move ys * 5
+		right
+		up
+		move xs,0-ys
+		down
+		right
+		call idot
+		up
+		move ys * 2
+		down
+		call idot
+		up
+		left
+		move xs * 2,ys * 3
+	else     
+	if equal("k,67")
+		;show "C"
+		up
+		move xs
+		down
+		move xs * 2
+		right
+		move ys
+		right
+		move xs * 2
+		left
+		move ys * 3
+		left
+		move xs * 2
+		right
+		move ys
+		right
+		move xs * 2
+		move xs, 0-ys
+		right         
+		move ys * 3
+		move ys, 0-xs
+		up           
+		right
+		move xs * 2
+		down
+	else     
+	if equal("k,68")
+		;show "D"
+		move xs * 2
+		move xs, 0-ys
+		right
+		move ys * 3
+		right
+		move xs,ys
+		move xs * 2
+		right
+		move ys * 5
+		right
+		up
+		move xs,0-ys
+		down
+		right
+		move ys * 3
+		left
+		move xs
+		left
+		move ys * 3
+		left
+		move xs
+		left
+		up
+		left
+		move xs * 2,ys
+	else     
+	if equal("k,69")
+		;show "E"
+		move xs * 3
+		right
+		move ys
+		right
+		move xs * 2
+		left
+		move ys
+		left
+		move xs
+		right
+		move ys
+		right
+		move xs
+		left
+		move ys
+		left
+		move xs * 2
+		right
+		move ys
+		right
+		move xs * 3
+		right
+		move ys * 5
+		right
+		up
+		move xs * 3
+		down
+	else     
+	if equal("k,70")
+		;show "F"
+		move xs * 3
+		right
+		move ys
+		right
+		move xs * 2
+		left
+		move ys
+		left
+		move xs
+		right
+		move ys
+		right
+		move xs
+		left
+		move ys * 2
+		right
+		move xs
+		right
+		move ys * 5
+		right
+		up
+		move xs * 3
+		down
+	else     
+	if equal("k,71")
+		;show "G"
+		up
+		move xs
+		down
+		move xs * 2
+		right
+		move ys
+		right
+		move xs * 2
+		left
+		move ys * 3
+		left
+		move xs
+		left
+		move ys * 2
+		right
+		move xs 
+		right
+		move ys * 3
+		right
+		move xs * 2
+		move xs, 0-ys
+		right         
+		move ys * 3
+		move ys, 0-xs
+		up           
+		right
+		move xs * 2
+		down
+	else     
+	if equal("k,72")
+		;show "H"
+		move xs
+		right
+		move ys * 2
+		left
+		move xs
+		left
+		move ys * 2
+		right
+		move xs
+		right
+		move ys * 5
+		right
+		move xs
+		right
+		move ys * 2
+		left
+		move xs
+		left
+		move ys * 2
+		right
+		move xs
+		right
+		move ys * 5
+		right
+		up
+		move xs * 3
+	else     
+	if equal("k,73")
+		;show "I"
+		move xs
+		right
+		move ys * 5
+		right
+		move xs
+		right
+		move ys * 5
+		right
+		up
+		move xs
+	else     
+	if equal("k,74")
+		;show "J"
+		up
+		move xs * 2
+		down
+		move xs
+		right
+		move ys * 4
+		right
+		move xs, ys
+		move xs * 2
+		right
+		move ys
+		right
+		move xs * 2
+		left
+		move ys * 4
+		right
+		up
+		move xs 
+	else     
+	if equal("k,75")
+		;show "K"
+		move xs
+		right
+		move ys * 2
+		left
+		move xs
+		left
+		move ys * 2
+		right
+		move xs
+		right
+		move ys * 2
+		right
+		move xs, ys / 2
+		move 0-xs, ys / 2
+		left
+		move ys * 2
+		right
+		move xs
+		right
+		move ys * 2
+		left
+		move xs
+		left
+		move ys * 2
+		right
+		move xs
+		right
+		move ys * 5
+		right
+		up
+		move xs * 3
+	else     
+	if equal("k,76")
+		;show "L"
+		move xs
+		right
+		move ys * 4
+		left
+		move xs * 2
+		right 
+		move ys
+		right
+		move xs * 3
+		right
+		move ys * 5
+		right
+		up
+		move xs * 3
+	else     
+	if equal("k,77")
+		;show "M"
+		up
+		move xs
+		down
+		move xs * 3
+		move xs, 0-ys
+		right
+		move ys * 4
+		right
+		move xs
+		right
+		move ys * 4
+		left
+		move xs
+		left
+		move ys * 4
+		right
+		move xs
+		right
+		move ys * 4
+		left
+		move xs
+		left
+		move ys * 4
+		right
+		move xs
+		right
+		move ys * 4
+		right
+		move xs, ys
+		up
+		move xs * 4
+	else     
+	if equal("k,78")
+		;show "N"
+		move xs * 2
+		move xs, 0-ys
+		right
+		move ys * 4
+		right
+		move xs
+		right
+		move ys * 4
+		left
+		move xs
+		left
+		move ys * 4
+		right
+		move xs
+		right
+		move ys * 5
+		right
+		up
+		move xs * 3
+	else     
+	if equal("k,79")
+		;show "O"
+		up
+		move xs
+		down
+		move xs
+		move xs, 0-ys
+		right
+		move ys * 3
+		right
+		move xs,ys
+		move xs
+		move xs, 0-ys
+		right
+		move ys * 3
+		right
+		move xs,ys
+		up   
+		right
+		move ys
+		down
+		move ys * 3
+		left
+		move xs
+		left
+		move ys * 3
+		left
+		move xs
+		left
+		up
+		left
+		move xs * 2,ys
+	else     
+	if equal("k,80")
+		;show "P"
+		move xs * 2
+		move xs, 0-ys
+		right
+		move ys
+		right
+		move xs,ys
+		move xs
+		left
+		move ys * 2
+		right
+		move xs
+		right
+		move ys * 5
+		right
+		up
+		move xs,0-ys
+		down
+		right
+		call idot
+		up
+		left
+		move xs * 2,ys
+	else     
+	if equal("k,81")
+		;show "Q"
+		up
+		move xs
+		down
+		move xs
+		move xs, 0-ys
+		right
+		move ys * 4
+		right
+		move xs * 2
+		move xs, 0-ys
+		right
+		move ys * 3
+		right
+		move xs,ys
+		up   
+		right
+		move ys
+		down
+		move ys * 3
+		left
+		move xs
+		left
+		move ys * 3
+		left
+		move xs
+		left
+		up
+		left
+		move xs * 2,ys
+	else     
+	if equal("k,82")
+		;show "R"
+		move xs * 2
+		move xs, 0-ys
+		right
+		move ys
+		right
+		move xs, ys / 2
+		move 0-xs, ys / 2
+		left
+		move ys * 2
+		right
+		move xs
+		right
+		move ys * 2
+		left
+		move xs
+		left
+		move ys * 2
+		right
+		move xs
+		right
+		move ys * 5
+		right
+		up
+		move xs,0-ys
+		down
+		right
+		call idot
+		up
+		left
+		move xs * 2,ys
+	else     
+	if equal("k,83")
+		;show "S"
+		up
+		move xs
+		down
+		move xs * 2
+		right
+		move ys
+		right
+		move xs * 2
+		left
+		move ys
+		left
+		move xs
+		move xs, 0-ys
+		right
+		move ys
+		right
+		move xs, ys
+		move xs * 2
+		right
+		move ys
+		right
+		move xs * 2
+		left
+		move ys
+		left
+		move xs
+		move xs, 0-ys
+		right
+		move ys
+		right
+		move xs, ys
+		up
+		move xs * 2
+	else     
+	if equal("k,84")
+		;show "T"
+		move xs * 3
+		right
+		move ys
+		right
+		move xs
+		left
+		move ys * 4
+		right
+		move xs
+		right
+		move ys * 4
+		left
+		move xs
+		right
+		move ys
+		right
+		up
+		move xs * 3
+	else     
+	if equal("k,85")
+		;show "U"
+		move xs
+		right
+		move ys * 4
+		left
+		move xs
+		left
+		move ys * 4
+		right
+		move xs
+		right
+		move ys * 4
+		right
+		move xs,ys
+		move xs
+		move xs, 0-ys
+		right
+		move ys * 4
+		right
+		up
+		move xs * 3
+	else     
+	if equal("k,86")
+		;show "V"
+		move xs
+		right
+		move ys * 4
+		left
+		move xs
+		left
+		move ys * 4
+		right
+		move xs
+		right
+		move ys * 4
+		right
+		move xs * 1.5,ys
+		move xs * 1.5, 0-ys
+		right
+		move ys * 4
+		right
+		up
+		move xs * 3
+	else     
+	if equal("k,87")
+		;show "W"
+		move xs
+		right
+		move ys * 4
+		left
+		move xs
+		left
+		move ys * 4
+		right
+		move xs
+		right
+		move ys * 4
+		left
+		move xs
+		left
+		move ys * 4
+		right
+		move xs
+		right
+		move ys * 4
+		right
+		move xs, ys
+		move xs * 3
+		move xs, 0-ys
+		right
+		move ys * 4
+		right
+		up
+		move xs * 5
+	else     
+	if equal("k,88")
+		;show "X"
+		move xs
+		right
+		move ys * 2
+		left
+		move xs
+		left
+		move ys * 2
+		right
+		move xs
+		right
+		move ys * 2
+		right
+		move xs, ys / 2
+		move 0-xs, ys / 2
+		left
+		move ys * 2
+		right
+		move xs
+		right
+		move ys * 2
+		left
+		move xs
+		left
+		move ys * 2
+		right
+		move xs
+		right
+		move ys * 2
+		right
+		move xs, ys / 2
+		move 0-xs, ys / 2
+		left
+		move ys * 2
+		right
+		up
+		move xs * 3
+	else     
+	if equal("k,89")
+		;show "Y"
+		move xs
+		right
+		move ys * 2
+		left
+		move xs
+		left
+		move ys * 2
+		right
+		move xs
+		right
+		move ys * 2
+		right
+		move xs, ys
+		left
+		move ys * 2
+		right
+		move xs
+		right
+		move ys * 2
+		left
+		move xs, 0-ys
+		right
+		move ys * 2
+		right
+		up
+		move xs * 3
+	else     
+	if equal("k,90")
+		;show "Z"
+		move xs * 3
+		right
+		move ys
+		right
+		move xs * 2, ys * 3
+		turnaround
+		move xs * 2
+		right
+		move ys
+		right
+		move xs * 3
+		right
+		move ys
+		right
+		move xs * 2, ys * 3
+		turnaround
+		move xs * 2
+		right
+		move ys
+		right
+		up
+		move xs * 3
+	else     
+	if equal("k,32")
+		;show " "
+		up
+		move xs * 2
+	else     
+	if equal("k,33")
+		;show "!"
+		move xs
+		right
+		move ys * 3
+		right
+		move xs
+		right
+		move ys * 3
+		up
+		turnaround
+		move ys * 4
+		left
+		down
+		move xs
+		right
+		move ys
+		right
+		move xs
+		right
+		move ys
+		up
+		move ys * 4
+		right 
+		move xs
+	else     
+	if equal("k,39")
+		;show "'"
+		move xs
+		right
+		move ys
+		move ys, 0-xs
+		turnaround
+		move ys * 2
+		right
+		up
+		move xs
+	else     
+	if equal("k,42")
+		;show "*"
+		
+	else     
+	if equal("k,44")
+		;show ","
+		up
+		right
+		move ys * 4
+		left   
+		down
+		move xs
+		right
+		move ys
+		move ys, 0-xs
+		turnaround
+		move ys * 2
+		right
+		up
+		move xs, ys * 4
+	else
+	if equal("k,45")
+		;show "-"
+		up
+		right
+		move ys * 2
+		left
+		down
+		move xs * 3
+		right
+		move ys
+		right
+		move xs * 3
+		right
+		move ys
+		right
+		up
+		move xs * 3, ys * 2
+	else     
+	if equal("k,46")
+		;show "."
+		up
+		right
+		move ys * 4
+		left
+		down
+		move xs
+		right
+		move ys
+		right
+		move xs
+		right
+		move ys
+		right
+		up
+		move xs, ys * 4
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	       
+	up	       
+	move xs
+	down
+	
+next
+
+stop
+
+sub idot
+	move ys
+	left
+	move xs
+	left
+	move ys
+	left
+	move xs
+	left
+endsub

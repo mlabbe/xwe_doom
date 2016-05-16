@@ -1,0 +1,86 @@
+PointInWhichSector ( sec, MapX, MapY )
+If Equal("sec,0-1")
+	Show "Not inside sector!"
+	End
+Endif
+
+MapX = MapX - MapX \ 64 - 16
+MapY = MapY - MapY \ 64 - 16
+
+Input ( d, "Up/Down (0/1)", "1")
+Input ( h, "Height", "4" )
+
+if Equal("d,0")
+	h = 0 - h
+	d = 0 - 1
+endif
+
+SectorDuplicate ( sec )
+GetSectorProperty ( ceil, nSectors, CeilingHeight )
+GetSectorProperty ( lght, nSectors, Light )
+SetSectorProperty ( nSectors, CeilingHeight, ceil + h  )
+SetSectorProperty ( nSectors, CeilingTexture, "CEIL5_2" )
+SetSectorProperty ( nSectors, Light, lght + 8 )
+
+SectorDuplicate ( nSectors )
+SetSectorProperty ( nSectors, CeilingHeight, ceil + h + h  )
+SetSectorProperty ( nSectors, CeilingTexture, "FLAT17" )
+SetSectorProperty ( nSectors, Light, lght + 16 )
+
+LineDefFlags = LF_TWOSIDED
+
+Up
+Move 16
+If Equal("d,1")
+	Right
+	Move 32
+	Left
+Endif
+Down
+
+If Equal("d,1")
+	LineDefBackSector = sec
+	LineDefFrontSector = nSectors-1
+Else
+	LineDefFrontSector = sec
+	LineDefBackSector = nSectors-1
+Endif
+LineDefFrontAboveTexture = "METAL"
+LineDefFrontYOffset = 4
+For i, 1, 4
+	Move 64
+	Move 16,(0-16) * d
+	If Equal("d,1")
+		Right
+	Else
+		Left
+	Endif
+Next
+
+If Equal("d,1")
+	Right
+Else
+	Left
+Endif
+Up
+Move 24,64 * d
+Down
+ 
+If Equal("d,1")
+	LineDefBackSector = nSectors-1
+	LineDefFrontSector = nSectors
+Else
+	LineDefFrontSector = nSectors-1
+	LineDefBackSector = nSectors
+Endif
+LineDefFrontAboveTexture = "SHAWN2"
+LineDefFrontYOffset = 18
+For i, 1, 4
+	Move 48
+	Move 8,(0-8) * d
+	If Equal("d,1")
+		Right
+	Else
+		Left
+	Endif
+Next i

@@ -1,0 +1,107 @@
+n = nLineDefsSelected
+if NotEqual("n,1")
+	Show "One linedef must be selected."
+	End
+Endif	
+
+GetSelectedLineDef n                 
+GetLineDefProperty width, n, Length
+
+If NotEqual("width,64")
+	Show "Sorry the selected line should be 64 units long."
+	End
+Endif
+;
+GetLineDefProperty MapAngle, n, ANGLE
+GetLineDefProperty sec, n, FrontSector
+GetLineDefProperty tex, n, FrontMainTexture
+SetLineDefProperty n, FrontMainTexture, "-"
+SetLineDefProperty n, FrontAboveTexture, tex
+GetLineDefProperty fl, n, FLAGS
+SetLineDefProperty n, FLAGS, fl + LF_UPPERUNPEGGED
+;
+GetSectorProperty f, sec, FloorHeight
+GetSectorProperty tf, sec, FloorTexture
+;
+GetLineDefProperty sv, n, StartVertex
+GetVertexProperty MapX, sv, X
+GetVertexProperty MapY, sv, Y
+TurnAround
+
+h = 72
+w = 64
+InputNumber ( t, "Tag?", "1" )
+
+NewSector f, f + h, tf, "CEIL5_1", 160      
+LineDefFlags = 0
+LineDefFrontSector = nSectors
+LineDefFrontMainTexture = "EXITDOOR"
+LineDefFrontXOffset = 64
+Move 24
+Right
+Up
+Move w
+Down
+Right 
+LineDefFrontXOffset = 88
+Move 24
+Right
+LineDefFrontXOffset = 0
+Move w
+Right
+Up
+Move 24
+Down
+
+NewSector f, f, tf, "CEIL5_1", 160, 0, t
+
+LineDefFlags = LF_LOWERUNPEGGED
+LineDefFrontSector = nSectors
+LineDefFrontAboveTexture = "-"
+LineDefFrontMainTexture = "EXITDOOR"
+LineDefFrontXOffset = 112
+Move 16
+Up
+Right
+Move w
+Right
+Down
+Move 16
+Right
+
+LineDefFlags = LF_TWOSIDED
+LineDefFrontSector = nSectors - 1
+LineDefBackSector = nSectors
+LineDefFrontAboveTexture = "EXITDOOR"
+LineDefFrontMainTexture = "-"
+LineDefTag = t
+LineDefType = 117
+Up
+Move w
+TurnAround
+Down
+LineDefFrontXOffset = 0
+Move w
+left
+Up
+Move 16
+left
+Down
+Move w
+    
+;----------------------------
+LineDefFlags = 0
+LineDefTag = 0
+LineDefType = 0
+LineDefFrontSector = nSectors - 1
+LineDefFrontAboveTexture = "-"
+LineDefFrontMainTexture = "EXITDOOR"
+Right
+LineDefFrontXOffset = 88
+Move 24
+Right
+LineDefFrontXOffset = 0
+Move w
+Right 
+LineDefFrontXOffset = 64
+Move 24

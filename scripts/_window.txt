@@ -1,0 +1,124 @@
+n = nLineDefsSelected
+if NotEqual("n,1")
+	Show "You must select one linedef."
+	End
+endif
+GetSelectedLineDef n
+;
+GetLineDefProperty MapAngle, n, ANGLE
+GetLineDefProperty w, n, LENGTH
+GetLineDefProperty sec, n, FrontSector
+GetLineDefProperty texture, n, FrontMainTexture
+
+GetSectorProperty f, sec, FloorHeight
+GetSectorProperty c, sec, CeilingHeight
+GetSectorProperty tf, sec, FloorTexture
+GetSectorProperty tc, sec, CeilingTexture
+;
+GetLineDefProperty sv, n, StartVertex
+GetVertexProperty MapX, sv, X
+GetVertexProperty MapY, sv, Y
+TurnAround
+
+h = ( c - f - 72 ) / 2
+InputNumber ( h, "Height from floor", h )
+InputNumber ( d, "Depth", "32" )
+InputNumber ( FrameSize, "Frame", "8" )
+d1 = ( d - FrameSize ) / 2
+
+;
+GetLineDefProperty Flgs, n, Flags
+SetLineDefProperty n, Flags, Flgs + LF_UPPERUNPEGGED + LF_LOWERUNPEGGED
+SetLineDefProperty n, FrontAboveTexture, texture
+SetLineDefProperty n, FrontBelowTexture, texture
+
+NewSector f + h - FrameSize, f + h + 72 + FrameSize, tf, tc, 160      
+NewSector f + h, f + h + 72, "FLAT23", "FLAT23", 160
+
+LineDefFlags = 0
+LineDefFrontSector = nSectors - 1
+LineDefFrontMainTexture = texture
+LineDefFrontYOffset = f + h - FrameSize
+; frame inner sides
+Move d1
+Up
+Move FrameSize
+Down
+Move d1
+Right
+LineDefFlags = LF_UPPERUNPEGGED + LF_LOWERUNPEGGED
+Move w          
+LineDefFlags = 0
+Right
+Move d1
+Up
+Move FrameSize
+Down
+Move d1
+
+LineDefFrontYOffset = 0
+Right
+Move w
+Up
+Right
+Move d1
+
+; Draw frame sides
+LineDefFrontMainTexture = "SHAWN2"
+Right
+Down
+Move FrameSize
+Left
+LineDefFrontSector = nSectors
+Move FrameSize
+Left                         
+LineDefFrontSector = nSectors - 1
+Move FrameSize
+Up
+TurnAround
+Move w
+TurnAround
+Down
+Move FrameSize
+Left
+LineDefFrontSector = nSectors
+Move FrameSize
+Left                         
+LineDefFrontSector = nSectors - 1
+Move FrameSize     
+
+Up
+TurnAround
+Move w - FrameSize
+TurnAround
+
+; Draw frame middle
+LineDefFlags = LF_TWOSIDED + LF_UPPERUNPEGGED + LF_LOWERUNPEGGED
+LineDefFrontSector = nSectors - 1
+LineDefBackSector = nSectors
+LineDefFrontMainTexture = "-"
+LineDefFrontBelowTexture = "SHAWN2"
+LineDefFrontAboveTexture = "SHAWN2"
+Down
+Move w - FrameSize * 2
+Up
+Left
+Move FrameSize
+Left
+Down
+Move w - FrameSize * 2
+
+; Draw bars!
+Left
+Up
+Move FrameSize / 2
+Left
+Down
+LineDefFlags = LF_TWOSIDED
+LineDefFrontSector = nSectors
+LineDefBackSector = nSectors
+LineDefFrontMainTexture = "MIDBARS3"
+LineDefBackMainTexture = "MIDBARS3"
+LineDefFrontBelowTexture = "-"
+LineDefFrontAboveTexture = "-"
+Move w - FrameSize * 2

@@ -1,0 +1,86 @@
+PointInWhichSector ( sec, MapX, MapY )
+If Equal("sec,0-1")
+	Show "Not inside sector!"
+	End
+Endif
+
+Input ( ct, "0=tiny; 1=small; 2=big2; 3=big3; 4=huge", "3" )
+if equal("ct,4")
+	t = "CRATWIDE"
+	f = "CRATOP1"
+	bh = 128
+else 
+	if equal("ct,3")
+		t = "CRATE1"
+		f = "CRATOP2"
+		bh = 64
+	else
+		if equal("ct,2")
+			t = "CRATE2"
+			f = "CRATOP1"
+			bh = 64
+		else
+			if equal("ct,1")
+				t = "CRATELIT"
+				f = "CRATOP1"
+				bh = 32
+			else
+				t = "CRATINY"	
+				f = "CRATOP1"
+				bh = 16
+			endif
+		endif
+	endif
+endif
+Input ( ch, "Clamp size?", bh/8 )
+mid = ( bh - ch ) / 2
+
+SectorDuplicate ( sec )
+GetSectorProperty ( ceil, nSectors, CeilingHeight )
+SetSectorProperty ( nSectors, CeilingHeight, ceil - bh - ch  )
+SetSectorProperty ( nSectors, CeilingTexture, "FLAT23" )
+
+SectorDuplicate ( nSectors )
+SetSectorProperty ( nSectors, CeilingHeight, ceil - bh  )
+SetSectorProperty ( nSectors, CeilingTexture, f )
+
+LineDefFlags = LF_TWOSIDED
+
+Up
+Move mid + ch
+Down
+
+For i, 1, 4
+	LineDefFrontSector = sec
+	LineDefBackSector = nSectors-1
+	LineDefFrontAboveTexture = "SHAWN2"
+	Move ch
+	Left
+	Move ch
+	Left
+	Move ch
+	LineDefFrontSector = nSectors
+	Move mid
+	Right
+	Move mid
+Next
+
+Left
+Up
+Move ch
+Down
+
+LineDefFrontSector = sec
+LineDefBackSector = nSectors
+LineDefFrontAboveTexture = t
+	
+For i, 1, 4
+	LineDefFrontXOffset = mid + ch
+	Move mid
+	Left
+	LineDefFrontXOffset = 0
+	Move mid
+	Up
+	Move ch
+	Down
+Next i

@@ -1,0 +1,994 @@
+n = nLineDefsSelected
+if NotEqual("n,1")
+	Show "You must select one linedef."
+	End
+endif
+GetSelectedLineDef n
+;
+GetLineDefProperty MapAngle, n, ANGLE
+GetLineDefProperty ev, n, EndVertex
+GetLineDefProperty Fl, n, Flags
+SetLineDefProperty n, Flags, Fl + LF_UPPERUNPEGGED + LF_LOWERUNPEGGED
+Up
+TurnAround
+Move 2
+Right
+Down
+;
+GetLineDefProperty sec, n, FrontSector
+GetSectorProperty f, sec, FloorHeight
+NewSector f + 38, f + 38 + 7, "FLAT23", "FLAT23", 192
+
+LineDefFrontSector = nSectors
+
+UserInput ( s, "Text?", "ABCDEFGHIJKLMNOPQRSTUVWXYZ" )
+len = Length ( s )
+tl = 0
+
+; one pixel on left side
+t = "GRAY1"
+x = 1
+y = 10
+call line
+
+for i, 1, len
+	c = mid ( "s, i, 1" )
+	k = asc ( c )
+	if equal("k,65")
+		;show "A"
+		t = "ZZWOLF3"
+		x = 87
+		y = 64
+		call line
+		
+		t = "SP_FACE1"
+		x = 22
+		y = 49
+		call line
+		
+		t = "COMPSTA2"
+		x = 111
+		y = 40
+		call line
+		call line
+		
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "ZZWOLF3"
+		x = 87
+		y = 64
+	else
+	if equal("k,66")
+		;show "B"
+		t = "SP_FACE1"
+		x = 22
+		y = 49
+		call line
+		
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "COMPSTA2"
+		x = 111 
+		y = 38 
+		call line
+		
+		t = "SW1SKULL"
+		x = 3 
+		y = 81 
+		call line
+		
+		t = "SP_FACE1"
+		x = 22
+		y = 49
+		call line
+		
+		t = "ZZWOLF2"
+		x = 63
+		y = 33
+	else     
+	if equal("k,67")
+		;show "C"
+		t = "CEMENT8"
+		x = 39
+		y = 48 
+		call line
+		
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "EXITDOOR"
+		x = 10
+		y = 51
+		call line
+		
+		t = "ICKWALL5"
+		x = 15
+		y = 36
+		call line
+		
+		t = "GSTLION"
+		x = 34
+		y = 31   
+		call line
+		
+		t = "ICKWALL5"
+		x = 15
+		y = 36
+	else     
+	if equal("k,68")
+		;show "D"
+		t = "SP_FACE1"
+		x = 22
+		y = 49
+		call line
+		
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "ICKWALL5"
+		x = 15
+		y = 36
+		call line
+		
+		t = "GSTLION"
+		x = 34
+		y = 31   
+		call line
+		
+		t = "SP_FACE1"
+		x = 22
+		y = 49
+		call line
+		
+		t = "CEMENT8"
+		x = 39
+		y = 48 
+	else     
+	if equal("k,69")
+		;show "E"
+		t = "CEMENT8"
+		x = 39
+		y = 48 
+		call line
+		
+		t = "SP_FACE1"
+		x = 22
+		y = 49
+		call line
+		
+		t = "COMPSTA2"
+		x = 111 
+		y = 38 
+		call line
+		
+		t = "SW1SKULL"
+		x = 3 
+		y = 81 
+		call line
+		
+		t = "ICKWALL5"
+		x = 15
+		y = 36
+		call line
+		
+		t = "GSTLION"
+		x = 34
+		y = 31   
+	else     
+	if equal("k,70")
+		;show "F"
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "SP_FACE1"
+		x = 22
+		y = 49
+		call line
+		
+		t = "SW2SKULL"
+		x = 43
+		y = 65
+		call line
+		
+		t = "SW2SKULL"
+		x = 43
+		y = 65
+		call line
+		
+		t = "CEMENT5"
+		x = 101
+		y = 21
+		call line
+		
+		t = "COMPTALL"
+		x = 37
+		y = 100
+	else     
+	if equal("k,71")
+		;show "G"
+		t = "CEMENT8"
+		x = 39
+		y = 48 
+		call line
+		
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "ICKWALL5"
+		x = 15
+		y = 36
+		call line
+		
+		t = "COMPSTA2"
+		x = 111 
+		y = 38 
+		call line
+		
+		t = "ICKWALL4"
+		x = 40
+		y = 87	
+		call line
+		
+		t = "COMPSTA2"
+		x = 47
+		y = 27
+	else     
+	if equal("k,72")
+		;show "H"
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "SP_FACE1"
+		x = 22
+		y = 49
+		call line
+		
+		t = "CEMENT5"
+		x = 101
+		y = 19
+		call line
+		
+		t = "CEMENT1"
+		x = 117
+		y = 95
+		call line
+		
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "SP_FACE1"
+		x = 22
+		y = 49
+	else     
+	if equal("k,73")
+		;show "I"
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "SP_FACE1"
+		x = 22
+		y = 49
+	else     
+	if equal("k,74")
+		;show "J"                           
+		t = "CEMENT5"
+		x = 120
+		y = 115
+		call line
+		
+		t = "CEMENT5"
+		x = 7
+		y = 115
+		call line
+		
+		t = "CEMENT5"
+		x = 120
+		y = 115
+		call line
+		
+		t = "CEMENT5"
+		x = 7
+		y = 115
+		call line
+		
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "ZZWOLF3"
+		x = 87 
+		y = 65
+	else     
+	if equal("k,75")
+		;show "K"
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "SP_FACE1"
+		x = 22
+		y = 49
+		call line
+		
+		t = "CEMENT5"
+		x = 101
+		y = 19
+		call line
+		
+		t = "CEMENT1"
+		x = 117
+		y = 95
+		call line
+		
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "ZZWOLF4"
+		x = 69
+		y = 81
+	else     
+	if equal("k,76")
+		;show "L"
+		t = "PANBOOK"
+		x = 31
+		y = 26
+		call line
+		
+		t = "SP_FACE1"
+		x = 22
+		y = 49
+		call line
+		
+		t = "CEMENT1"
+		x = 118
+		y = 100
+		call line
+		
+		t = "CEMENT5"
+		x = 120
+		y = 115
+		call line
+		
+		t = "CEMENT5"
+		x = 7
+		y = 115
+		call line
+		
+		t = "CEMENT5"
+		x = 120
+		y = 115
+	else     
+	if equal("k,77")
+		;show "M"
+		t = "ZZWOLF3"
+		x = 87
+		y = 64
+		call line
+		
+		t = "SP_FACE1"
+		x = 22
+		y = 49
+		call line
+		
+		t = "CEMENT5"
+		x = 101
+		y = 21
+		call line
+		
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "SP_FACE1"
+		x = 22
+		y = 49
+		call line
+		
+		t = "COMPTALL"
+		x = 37
+		y = 100
+		call line
+		
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "ZZWOLF3"
+		x = 87
+		y = 64
+	else     
+	if equal("k,78")
+		;show "N"
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "SP_FACE1"
+		x = 22
+		y = 49
+		call line
+		
+		t = "COMPTALL"
+		x = 37
+		y = 100
+		call line
+		
+		t = "CEMENT5"
+		x = 101
+		y = 21
+		call line
+		
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "ZZWOLF3"
+		x = 87
+		y = 64
+	else     
+	if equal("k,79")
+		;show "O"
+		t = "CEMENT8"
+		x = 39
+		y = 48 
+		call line
+		
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "ICKWALL5"
+		x = 15
+		y = 36
+		call line
+		
+		t = "EXITDOOR"
+		x = 10
+		y = 51
+		call line
+		
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "CEMENT8"
+		x = 39
+		y = 48 
+	else     
+	if equal("k,80")
+		;show "P"
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "SP_FACE1"
+		x = 22
+		y = 49
+		call line
+		
+		t = "SW2SKULL"
+		x = 43
+		y = 65
+		call line
+		
+		t = "SW2SKULL"
+		x = 43
+		y = 65
+		call line
+		
+		t = "ZZWOLF3"
+		x = 87
+		y = 52
+		call line
+		
+		t = "CEMENT1"
+		x = 117
+		y = 96
+	else     
+	if equal("k,81")
+		;show "Q"
+		t = "CEMENT8"
+		x = 39
+		y = 48 
+		call line
+		
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "ICKWALL5"
+		x = 15
+		y = 36
+		call line
+		
+		t = "SP_FACE1"
+		x = 115
+		y = 50
+		call line
+		
+		t = "SP_DUDE5"
+		x = 23
+		y = 87
+		call line
+		
+		t = "MARBFAC4"
+		x = 31
+		y = 55 
+	else     
+	if equal("k,82")
+		;show "R"
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "SP_FACE1"
+		x = 22
+		y = 49
+		call line
+		
+		t = "SW2SKULL"
+		x = 43
+		y = 65
+		call line
+		
+		t = "SW2SKULL"
+		x = 43
+		y = 65
+		call line
+		
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "SILVER3"
+		x = 33
+		y = 57
+	else     
+	if equal("k,83")
+		;show "S"
+		t = "COMPSTA1"
+		x = 108 
+		y = 29
+		call line
+		
+		t = "COMPSTA2"
+		x = 114
+		y = 38
+		call line
+		
+		t = "COMPSTA2"
+		x = 111 
+		y = 38 
+		call line
+		
+		t = "SW1SKULL"
+		x = 3 
+		y = 81 
+		call line
+		
+		t = "COMPSTA2"
+		x = 47 
+		y = 27 
+		call line
+		
+		t = "TEKWALL6"
+		x = 181
+		y = 74
+	else     
+	if equal("k,84")
+		;show "T"
+		t = "CEMENT5"
+		x = 101
+		y = 21
+		call line
+		
+		t = "COMPTALL"
+		x = 37
+		y = 100
+		call line
+		
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "SP_FACE1"
+		x = 22
+		y = 49
+		call line
+		
+		t = "CEMENT5"
+		x = 101
+		y = 21
+		call line
+		
+		t = "COMPTALL"
+		x = 37
+		y = 100
+	else     
+	if equal("k,85")
+		;show "U"
+		t = "PANBOOK"
+		x = 31
+		y = 26
+		call line
+		
+		t = "SP_FACE1"
+		x = 22
+		y = 49
+		call line
+		
+		t = "CEMENT5"
+		x = 7
+		y = 115
+		call line
+		
+		t = "CEMENT5"
+		x = 120
+		y = 115
+		call line
+		
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "ZZWOLF3"
+		x = 87 
+		y = 65
+	else     
+	if equal("k,86")
+		;show "V"
+		t = "ZZWOLF3"
+		x = 87
+		y = 52
+		call line
+		
+		t = "PANBOOK"
+		x = 31
+		y = 26
+		call line
+		
+		t = "CEMENT5"
+		x = 7
+		y = 115
+		call line
+		
+		t = "CEMENT5"
+		x = 120
+		y = 115
+		call line
+		
+		t = "PANBOOK"
+		x = 31
+		y = 26
+		call line
+		
+		t = "BIGDOOR7"
+		x = 58
+		y = 33
+	else     
+	if equal("k,87")
+		;show "W"
+		t = "PANBOOK"
+		x = 31
+		y = 26
+		call line
+		
+		t = "SP_FACE1"
+		x = 22
+		y = 49
+		call line
+		
+		t = "CEMENT5"
+		x = 7
+		y = 115
+		call line
+		
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "SP_FACE1"
+		x = 22
+		y = 49
+		call line
+		
+		t = "CEMENT5"
+		x = 120
+		y = 115
+		call line
+		
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "ZZWOLF3"
+		x = 87 
+		y = 65
+	else     
+	if equal("k,88")
+		;show "X"
+		t = "STARGR2"
+		x = 10
+		y = 99
+		call line
+		
+		t = "SP_FACE1"
+		x = 22
+		y = 49
+		call line
+		
+		t = "CEMENT5"
+		x = 101
+		y = 19
+		call line
+		
+		t = "CEMENT1"
+		x = 117
+		y = 95
+		call line
+		
+		t = "PANBOOK"
+		x = 24
+		y = 26
+		call line
+		
+		t = "ZZWOLF4"
+		x = 69
+		y = 81
+	else     
+	if equal("k,89")
+		;show "Y"                           
+		t = "COMPTALL"
+		x = 65
+		y = 45
+		call line
+		
+		t = "BIGDOOR7"
+		x = 58
+		y = 33
+		call line
+		
+		t = "CEMENT8"
+		x = 46
+		y = 47
+		call line
+		
+		t = "CEMENT5"
+		x = 4
+		y = 117
+		call line
+		
+		t = "ZZWOLF3"
+		x = 87
+		y = 52
+		call line
+		
+		t = "CEMENT8"
+		x = 37
+		y = 50
+	else     
+	if equal("k,90")
+		;show "Z"
+		t = "ZZWOLF3"
+		x = 72
+		y = 78
+		call line
+		
+		t = "COMPSTA2"
+		x = 47 
+		y = 27 
+		call line
+		                                        
+		t = "SW1SKULL"                          
+		x = 3                                  
+		y = 81                                  
+		call line                              
+		
+		t = "COMPSTA2"
+		x = 111 
+		y = 38 
+		call line
+		
+		t = "COMPSTA2"
+		x = 114
+		y = 38
+		call line
+		
+		t = "CEMENT4"
+		x = 50 
+		y = 58
+	else     
+	if equal("k,32")
+		;show " "               
+		t = "GRAY1"
+		x = 1
+		y = 15
+		call line
+		
+		t = "GRAY1"
+		x = 1
+		y = 20
+	else     
+	if equal("k,42")
+		;show "*"
+		LineDefFrontXOffset = 31
+		LineDefFrontYOffset = 37
+		l = 4
+	else     
+	if equal("k,33")
+		;show "!"
+		t = "COMPSTA2"
+		x = 114
+		y = 38
+		call line
+		
+		t = "COMPSTA2"
+		x = 114
+		y = 38
+	else
+	if equal("k,44")
+		;show ","
+		t = "COMPTALL"
+		x = 37
+		y = 104
+		call line
+		
+		t = "CEMENT6"
+		x = 69
+		y = 116
+	else
+	if equal("k,45")
+		;show "-"
+		t = "CEMENT5"
+		x = 101
+		y = 19
+		call line
+		
+		t = "CEMENT1"
+		x = 117
+		y = 95
+		call line
+		
+		t = "CEMENT5"
+		x = 101
+		y = 19
+		call line
+		
+		t = "CEMENT1"
+		x = 117
+		y = 95
+		call line
+		
+		t = "CEMENT5"
+		x = 101
+		y = 19
+		call line
+		
+		t = "CEMENT1"
+		x = 117
+		y = 95
+	else            
+	if equal("k,46")
+		;show "."
+		t = "CEMENT3"
+		x = 85
+		y = 116
+		call line
+		
+		t = "CEMENT6"
+		x = 69
+		y = 116
+	else
+	if equal("k,58")
+		;show ":"
+		t = "ZZWOLF2"
+		x = 63
+		y = 33
+		call line
+		
+		t = "ZZWOLF2"
+		x = 63
+		y = 33
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	endif
+	
+	call line
+	
+	t = "GRAY1"
+	x = 1
+	y = 10
+	call line
+next
+
+LineDefFrontXOffset = 0
+LineDefFrontYOffset = 0
+LineDefFrontMainTexture = "SHAWN2"
+
+right
+move 2
+right 
+
+SetVertexProperty ev, X, MapX
+SetVertexProperty ev, Y, MapY
+
+move tl
+right
+move 2
+
+stop
+
+sub line
+	LineDefFrontMainTexture = t
+	LineDefFrontXOffset = x
+	LineDefFrontYOffset = y	
+	move 1
+	tl = tl + 1
+endsub

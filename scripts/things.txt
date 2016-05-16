@@ -1,0 +1,4 @@
+for ( i, 0, 10 )
+  newthing ( 3000+i, i * 64, i * 64, i * 45, TF_LEVEL45 )
+next
+newthing ( 3001, 300, 700, 45, TF_LEVEL12 + TF_LEVEL3 )
